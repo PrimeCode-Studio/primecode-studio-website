@@ -1,0 +1,49 @@
+.preloaderContainer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #09090B;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10000;
+  overflow: hidden;
+}
+
+.particles {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  background-image: 
+    radial-gradient(circle at 15% 50%, rgba(37, 99, 235, 0.05) 0%, transparent 50%),
+    radial-gradient(circle at 85% 30%, rgba(37, 99, 235, 0.05) 0%, transparent 50%);
+  z-index: 1;
+}
+
+.textContainer {
+  position: relative;
+  z-index: 2;
+  font-family: var(--font-jetbrains-mono), monospace;
+  font-size: 2.5rem;
+  font-weight: 500;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  white-space: pre;
+}
+
+.text {
+  display: inline-block;
+}
+
+.cursor {
+  display: inline-block;
+  color: #3B82F6;
+  font-weight: 300;
+}
