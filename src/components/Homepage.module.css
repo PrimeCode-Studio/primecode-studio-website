@@ -57,13 +57,20 @@
 
 /* NAVBAR — sits on a hairline, not a box */
 .nav {
-  position: relative;
-  z-index: 10;
+  position: sticky;
+  top: 0;
+  z-index: 50;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 1.5rem 0;
   border-bottom: 1px solid var(--border);
+  background: rgba(250, 251, 252, 0.82);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  margin: 0 -4%;
+  padding-left: 4%;
+  padding-right: 4%;
 }
 
 .logo {
@@ -213,8 +220,8 @@
 }
 
 .title {
-  font-size: 3.75rem;
-  line-height: 1.06;
+  font-size: clamp(2.25rem, 5.5vw, 3.75rem);
+  line-height: 1.08;
   font-weight: 700;
   margin-bottom: 1.5rem;
   letter-spacing: -0.035em;
@@ -567,4 +574,242 @@
 .learnMore:hover {
   text-decoration: underline;
   text-underline-offset: 3px;
+}
+
+/* ==========================================================================
+   MOBILE NAV MENU
+   ========================================================================== */
+
+.menuToggle {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 9px;
+  border: 1px solid var(--border-strong);
+  background: var(--surface);
+  color: var(--ink);
+  cursor: pointer;
+  z-index: 2;
+  transition: transform 0.15s ease;
+}
+
+.menuToggle:active {
+  transform: scale(0.94);
+}
+
+.mobilePanel {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  box-shadow: 0 24px 48px rgba(11, 13, 18, 0.1);
+  display: flex;
+  flex-direction: column;
+  padding: 0 6%;
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: max-height 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease, padding 0.4s ease;
+}
+
+.mobilePanelOpen {
+  max-height: 480px;
+  opacity: 1;
+  padding: 1.5rem 6% 2rem;
+}
+
+.mobileLinks {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+}
+
+.mobileLinks li {
+  border-bottom: 1px solid var(--border);
+  opacity: 0;
+  transform: translateY(-6px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.mobilePanelOpen .mobileLinks li {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.mobileLinks li a,
+.mobileLinks li span {
+  display: block;
+  padding: 1rem 0.2rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+.mobileLinks li a:hover {
+  text-decoration: none;
+  color: var(--ink);
+}
+
+.mobileActive a,
+.mobileActive span {
+  color: var(--indigo) !important;
+}
+
+.mobilePrimaryBtn {
+  margin-top: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background: linear-gradient(135deg, var(--indigo) 0%, #1f38d6 100%);
+  color: #ffffff;
+  border: none;
+  padding: 0.9rem 1.5rem;
+  border-radius: 9px;
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.mobilePrimaryBtn:hover {
+  text-decoration: none;
+}
+
+.navBackdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(11, 13, 18, 0.28);
+  backdrop-filter: blur(2px);
+  z-index: -1;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* ==========================================================================
+   RESPONSIVE OVERHAUL
+   ========================================================================== */
+
+@media (max-width: 860px) {
+  .navLinks,
+  .nav > .primaryBtn {
+    display: none;
+  }
+  .menuToggle {
+    display: flex;
+  }
+}
+
+@media (max-width: 1080px) {
+  .hero {
+    flex-direction: column;
+    align-items: stretch;
+    min-height: auto;
+    padding: 3rem 0 2rem;
+    gap: 3rem;
+  }
+  .heroLeft {
+    max-width: 100%;
+    text-align: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+  }
+  .subtitle {
+    max-width: 100%;
+  }
+  .actions {
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .heroRight {
+    height: auto;
+    padding-bottom: 6rem;
+  }
+  .dashboardMockup {
+    width: 100%;
+    transform: none;
+    height: 340px;
+  }
+  .codeSnippet {
+    right: 0.5rem;
+    bottom: 1rem;
+  }
+  .float1, .float2, .float3 {
+    display: none;
+  }
+  .statsBar {
+    position: static;
+    width: 100%;
+    margin-top: 1.5rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .homepage {
+    padding: 0 5%;
+  }
+  .subtitle {
+    font-size: 1rem;
+  }
+  .actions {
+    flex-direction: column;
+    width: 100%;
+  }
+  .actions button,
+  .actions a {
+    width: 100%;
+    justify-content: center;
+  }
+  .dashboardMockup {
+    height: 280px;
+  }
+  .mockupContent h2 {
+    font-size: 1.5rem;
+  }
+  .codeSnippet {
+    display: none;
+  }
+  .statsBar {
+    flex-direction: column;
+    padding: 1.4rem;
+  }
+  .statDivider {
+    width: 100%;
+    height: 1px;
+  }
+  .sectionHeader h2 {
+    font-size: 2rem;
+  }
+  .services {
+    padding: 4rem 0 5rem;
+  }
+  .servicesGrid {
+    gap: 1.1rem;
+  }
+  .serviceCard {
+    min-width: 100%;
+    max-width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mobilePanel,
+  .mobileLinks li,
+  .primaryBtn,
+  .menuToggle,
+  .statsBar,
+  .stat,
+  .floatingCard {
+    transition: none !important;
+    animation: none !important;
+  }
 }

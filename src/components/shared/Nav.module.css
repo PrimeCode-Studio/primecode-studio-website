@@ -1,0 +1,249 @@
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.25rem 4%;
+  border-bottom: 1px solid var(--card-border);
+  background: rgba(250, 251, 252, 0.82);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  font-size: 1.05rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--text-primary);
+  z-index: 2;
+}
+
+.logo:hover {
+  text-decoration: none;
+}
+
+.logo strong {
+  font-weight: 300;
+  color: var(--text-secondary);
+}
+
+.logoIcon {
+  width: 38px;
+  height: 38px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9px;
+  background: linear-gradient(
+    135deg,
+    rgba(52, 82, 255, 0.08),
+    rgba(6, 182, 212, 0.08)
+  );
+  border: 1px solid var(--card-border);
+  overflow: hidden;
+}
+
+.navLinks {
+  display: flex;
+  gap: 2.25rem;
+  list-style: none;
+  font-size: 0.87rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+
+.navLinks li a {
+  color: inherit;
+}
+
+.navLinks li a:hover {
+  text-decoration: none;
+}
+
+.navLinks li {
+  cursor: pointer;
+  transition: color 0.2s ease;
+  position: relative;
+  padding-bottom: 4px;
+}
+
+.navLinks li:hover,
+.navLinks li.active {
+  color: var(--text-primary);
+}
+
+.navLinks li.active::after {
+  content: "";
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, var(--primary), var(--accent));
+  border-radius: 2px;
+}
+
+.primaryBtn {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-hover) 100%);
+  color: #ffffff;
+  border: none;
+  padding: 0.7rem 1.35rem;
+  border-radius: 9px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  box-shadow: 0 1px 2px rgba(11, 13, 18, 0.08);
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease;
+}
+
+.primaryBtn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 24px rgba(52, 82, 255, 0.24);
+  text-decoration: none;
+}
+
+.primaryBtn:active {
+  transform: translateY(0);
+}
+
+/* HAMBURGER TOGGLE — hidden on desktop */
+.menuToggle {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 9px;
+  border: 1px solid var(--card-border-strong);
+  background: var(--card-bg);
+  color: var(--text-primary);
+  cursor: pointer;
+  z-index: 2;
+  transition: border-color 0.2s ease, transform 0.15s ease;
+}
+
+.menuToggle:active {
+  transform: scale(0.94);
+}
+
+/* MOBILE PANEL */
+.mobilePanel {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: var(--card-bg);
+  border-bottom: 1px solid var(--card-border);
+  box-shadow: 0 24px 48px rgba(11, 13, 18, 0.1);
+  display: flex;
+  flex-direction: column;
+  padding: 0 6%;
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: max-height 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease, padding 0.4s ease;
+}
+
+.mobilePanelOpen {
+  max-height: 480px;
+  opacity: 1;
+  padding: 1.5rem 6% 2rem;
+}
+
+.mobileLinks {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+}
+
+.mobileLinks li {
+  border-bottom: 1px solid var(--card-border);
+  opacity: 0;
+  transform: translateY(-6px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.mobilePanelOpen .mobileLinks li {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.mobileLinks li a {
+  display: block;
+  padding: 1rem 0.2rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.mobileLinks li a:hover {
+  text-decoration: none;
+  color: var(--text-primary);
+}
+
+.mobileActive a {
+  color: var(--primary) !important;
+}
+
+.mobilePrimaryBtn {
+  margin-top: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-hover) 100%);
+  color: #ffffff;
+  border: none;
+  padding: 0.9rem 1.5rem;
+  border-radius: 9px;
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.mobilePrimaryBtn:hover {
+  text-decoration: none;
+}
+
+.backdrop {
+  position: fixed;
+  inset: 0;
+  top: 0;
+  background: rgba(11, 13, 18, 0.28);
+  backdrop-filter: blur(2px);
+  z-index: -1;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@media (max-width: 860px) {
+  .navLinks,
+  .primaryBtn {
+    display: none;
+  }
+  .menuToggle {
+    display: flex;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mobilePanel,
+  .mobileLinks li,
+  .primaryBtn,
+  .menuToggle {
+    transition: none;
+  }
+}

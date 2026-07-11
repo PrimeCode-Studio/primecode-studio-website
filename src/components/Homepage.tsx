@@ -1,10 +1,11 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import Image from "next/image";
 import Link from "next/link";
 import styles from "./Homepage.module.css";
+import Footer from "@/components/shared/Footer"
 import {
   ArrowRight,
   Code,
@@ -16,6 +17,8 @@ import {
   Cpu,
   Zap,
   LayoutGrid,
+  Menu,
+  X,
 } from "lucide-react";
 
 export default function Homepage({
@@ -25,6 +28,7 @@ export default function Homepage({
   show: boolean;
   isSkip: boolean;
 }) {
+  const [mobileOpen, setMobileOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
   const heroLeftRef = useRef<HTMLDivElement>(null);
   const heroRightRef = useRef<HTMLDivElement>(null);
@@ -115,6 +119,13 @@ export default function Homepage({
     return () => ctx.revert();
   }, [show, isSkip]);
 
+  useEffect(() => {
+    document.body.style.overflow = mobileOpen ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [mobileOpen]);
+
   return (
     <div
       ref={containerRef}
@@ -143,25 +154,83 @@ export default function Homepage({
         </div>
         <ul className={styles.navLinks}>
           <li className={styles.active}>Home</li>
-          <li>Services</li>
-          <li>Projects</li>
+          <li>
+            <Link href="/services">Services</Link>
+          </li>
+          <li>
+            <Link href="/projects">Projects</Link>
+          </li>
 
           <li>
             <Link href="/about">About Us</Link>
           </li>
 
-          <li>Contact</li>
+          <li>
+            <Link href="/contact">Contact</Link>
+          </li>
         </ul>
-        <button className={styles.primaryBtn}>
+        <Link href="/contact" className={styles.primaryBtn}>
           Let's Build Together <ArrowRight size={16} />
+        </Link>
+
+        <button
+          className={styles.menuToggle}
+          aria-label={mobileOpen ? "Close menu" : "Open menu"}
+          aria-expanded={mobileOpen}
+          onClick={() => setMobileOpen((v) => !v)}
+        >
+          {mobileOpen ? <X size={22} /> : <Menu size={22} />}
         </button>
+
+        <div
+          className={`${styles.mobilePanel} ${mobileOpen ? styles.mobilePanelOpen : ""}`}
+        >
+          <ul className={styles.mobileLinks}>
+            <li className={styles.mobileActive}>
+              <span>Home</span>
+            </li>
+            <li>
+              <Link href="/services" onClick={() => setMobileOpen(false)}>
+                Services
+              </Link>
+            </li>
+            <li>
+              <Link href="/projects" onClick={() => setMobileOpen(false)}>
+                Projects
+              </Link>
+            </li>
+            <li>
+              <Link href="/about" onClick={() => setMobileOpen(false)}>
+                About Us
+              </Link>
+            </li>
+            <li>
+              <Link href="/contact" onClick={() => setMobileOpen(false)}>
+                Contact
+              </Link>
+            </li>
+          </ul>
+          <Link
+            href="/contact"
+            className={styles.mobilePrimaryBtn}
+            onClick={() => setMobileOpen(false)}
+          >
+            Let's Build Together <ArrowRight size={16} />
+          </Link>
+        </div>
+
+        {mobileOpen && (
+          <div
+            className={styles.navBackdrop}
+            onClick={() => setMobileOpen(false)}
+          />
+        )}
       </nav>
 
       <section className={styles.hero}>
         <div ref={heroLeftRef} className={styles.heroLeft}>
           <div className={styles.pill}>
-            <Sparkles size={14} className={styles.pillIcon} /> WE BUILD DIGITAL
-            EXCELLENCE
+            <Sparkles size={14} className={styles.pillIcon} /> Your Vision,Our Code
           </div>
           <h1 className={styles.title}>
             Turning Ideas Into
@@ -176,12 +245,12 @@ export default function Homepage({
             startups and businesses.
           </p>
           <div className={styles.actions}>
-            <button className={`${styles.primaryBtn} ${styles.largeBtn}`}>
+            <Link href="/projects" className={`${styles.primaryBtn} ${styles.largeBtn}`}>
               Explore Our Work <ArrowRight size={16} />
-            </button>
-            <button className={styles.secondaryBtn}>
+            </Link>
+            <Link href="/services" className={styles.secondaryBtn}>
               Our Services <LayoutGrid size={16} />
-            </button>
+            </Link>
           </div>
         </div>
 
@@ -277,24 +346,7 @@ export default function Homepage({
               High-performance, responsive websites that are fast, secure, and
               built to convert.
             </p>
-            <a href="#" className={styles.learnMore}>
-              Learn More <ArrowRight size={14} />
-            </a>
-          </div>
-          <div className={styles.serviceCard}>
-            <div className={styles.serviceIconWrap}>
-              <Layers size={24} />
-            </div>
-            <h3>
-              Web Application
-              <br />
-              Development
-            </h3>
-            <p>
-              Scalable web applications tailored to your business needs using
-              modern tech.
-            </p>
-            <a href="#" className={styles.learnMore}>
+            <a href="/services" className={styles.learnMore}>
               Learn More <ArrowRight size={14} />
             </a>
           </div>
@@ -307,7 +359,7 @@ export default function Homepage({
               Powerful and user-friendly e-commerce platforms that drive sales
               and growth.
             </p>
-            <a href="#" className={styles.learnMore}>
+            <a href="/services" className={styles.learnMore}>
               Learn More <ArrowRight size={14} />
             </a>
           </div>
@@ -320,7 +372,7 @@ export default function Homepage({
               Integrate AI to automate processes, enhance user experience, and
               innovate.
             </p>
-            <a href="#" className={styles.learnMore}>
+            <a href="/services" className={styles.learnMore}>
               Learn More <ArrowRight size={14} />
             </a>
           </div>
@@ -330,15 +382,16 @@ export default function Homepage({
             </div>
             <h3>Startup Solutions</h3>
             <p>
-              MVP development, product strategy, and technical support for
+              Product strategy, and technical support for
               startups.
             </p>
-            <a href="#" className={styles.learnMore}>
+            <a href="/services" className={styles.learnMore}>
               Learn More <ArrowRight size={14} />
             </a>
           </div>
         </div>
       </section>
+      <Footer />
     </div>
   );
 }
