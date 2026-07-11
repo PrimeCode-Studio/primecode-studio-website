@@ -13,7 +13,7 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Prime Code Studio",
+  title: "PrimeCodeStudio",
   description: "Turning Ideas Into Powerful Digital Experiences.",
 };
 

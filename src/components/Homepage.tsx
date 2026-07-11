@@ -92,17 +92,15 @@ export default function Homepage({ show, isSkip }: { show: boolean, isSkip: bool
       <nav ref={navRef} className={styles.nav}>
         <div className={styles.logo}>
           <div className={styles.logoIcon}>
-            <Image src="/logo.png.jpg" alt="Prime Code Studio Logo" width={36} height={36} />
+            <Image src="/logo_without_bg.PNG" alt="PrimeCodeStudio Logo" width={36} height={36} />
           </div>
-          <span>PRIME CODE <strong>STUDIO</strong></span>
+          <span>PrimeCode<strong>Studio</strong></span>
         </div>
         <ul className={styles.navLinks}>
           <li className={styles.active}>Home</li>
           <li>Services</li>
           <li>Projects</li>
           <li>About Us</li>
-          <li>Process</li>
-          <li>Blog</li>
           <li>Contact</li>
         </ul>
         <button className={styles.primaryBtn}>
@@ -137,9 +135,11 @@ export default function Homepage({ show, isSkip }: { show: boolean, isSkip: bool
           <div className={styles.dashboardMockup}>
             <div className={styles.mockupHeader}>
               <div className={styles.dots}>
-                <span></span><span></span><span></span>
+                <span className={styles.dots1}></span>
+                <span className={styles.dots2}></span>
+                <span className={styles.dots3}></span>
               </div>
-              <div className={styles.mockupTitle}>Prime Code Studio</div>
+              <div className={styles.mockupTitle}>PrimeCodeStudio</div>
             </div>
             <div className={styles.mockupBody}>
               <div className={styles.mockupContent}>

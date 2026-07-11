@@ -1,33 +1,35 @@
 .page {
-  --background: #fafafa;
-  --foreground: #fff;
-
-  --text-primary: #000;
-  --text-secondary: #666;
-
-  --button-primary-hover: #383838;
-  --button-secondary-hover: #f2f2f2;
-  --button-secondary-border: #ebebeb;
-
   display: flex;
-  flex: 1;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-family: var(--font-geist-sans);
+  min-height: 100vh;
+  width: 100%;
+  font-family: var(--font-inter), system-ui, sans-serif;
   background-color: var(--background);
+  padding: 3rem 1.5rem;
 }
 
 .main {
   display: flex;
-  flex: 1;
+  flex-direction: column;
   width: 100%;
   max-width: 800px;
-  flex-direction: column;
+
   align-items: flex-start;
-  justify-content: space-between;
-  background-color: var(--foreground);
-  padding: 120px 60px;
+  justify-content: flex-start;
+  gap: 48px;
+
+  background-color: var(--card-bg);
+  border: 1px solid var(--card-border);
+  padding: 100px 80px;
+  border-radius: 20px;
+
+  /* Layered elevation instead of one flat shadow — reads crisp, not muddy */
+  box-shadow:
+    0 1px 1px rgba(11, 13, 18, 0.02),
+    0 8px 24px rgba(11, 13, 18, 0.04),
+    0 32px 64px rgba(11, 13, 18, 0.06);
 }
 
 .intro {
@@ -35,108 +37,110 @@
   flex-direction: column;
   align-items: flex-start;
   text-align: left;
-  gap: 24px;
+  gap: 16px;
 }
 
 .intro h1 {
-  max-width: 320px;
-  font-size: 40px;
-  font-weight: 600;
-  line-height: 48px;
-  letter-spacing: -2.4px;
+  max-width: 540px;
+  font-size: 46px;
+  font-weight: 700;
+  line-height: 1.12;
+  letter-spacing: -0.035em;
   text-wrap: balance;
   color: var(--text-primary);
 }
 
 .intro p {
-  max-width: 440px;
-  font-size: 18px;
-  line-height: 32px;
-  text-wrap: balance;
+  max-width: 500px;
+  font-size: 16px;
+  line-height: 1.7;
+  text-wrap: pretty;
   color: var(--text-secondary);
 }
 
 .intro a {
-  font-weight: 500;
-  color: var(--text-primary);
+  font-weight: 600;
+  color: var(--primary);
+  text-decoration: underline;
+  text-underline-offset: 4px;
 }
 
 .ctas {
   display: flex;
   flex-direction: row;
+  align-items: center;
+  flex-wrap: wrap;
   width: 100%;
-  max-width: 440px;
-  gap: 16px;
+  gap: 12px;
   font-size: 14px;
 }
 
 .ctas a {
-  display: flex;
+  display: inline-flex;
   justify-content: center;
   align-items: center;
-  height: 40px;
-  padding: 0 16px;
-  border-radius: 128px;
+  height: 46px;
+  padding: 0 22px;
+  border-radius: 9999px;
   border: 1px solid transparent;
-  transition: 0.2s;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
   cursor: pointer;
-  width: fit-content;
-  font-weight: 500;
+  font-weight: 600;
+  white-space: nowrap;
+  text-decoration: none;
 }
 
 a.primary {
-  background: var(--text-primary);
-  color: var(--background);
-  gap: 8px;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-hover) 100%);
+  color: #ffffff;
+  box-shadow: 0 1px 2px rgba(11, 13, 18, 0.08);
 }
 
 a.secondary {
-  border-color: var(--button-secondary-border);
+  background-color: transparent;
+  border-color: var(--card-border-strong);
+  color: var(--text-primary);
 }
 
-/* Enable hover only on non-touch devices */
+/* Hover Automation Safety Logic */
 @media (hover: hover) and (pointer: fine) {
   a.primary:hover {
-    background: var(--button-primary-hover);
-    border-color: transparent;
+    transform: translateY(-2px);
+    box-shadow: 0 12px 24px rgba(52, 82, 255, 0.24);
   }
 
   a.secondary:hover {
-    background: var(--button-secondary-hover);
-    border-color: transparent;
+    background-color: var(--card-elevated);
+    border-color: rgba(52, 82, 255, 0.3);
+    transform: translateY(-1px);
   }
 }
 
-@media (max-width: 600px) {
-  .main {
-    padding: 48px 24px;
+/* Mobile & Small Screen Adaptations */
+@media (max-width: 640px) {
+  .page {
+    padding: 0;
   }
 
-  .intro {
-    gap: 16px;
+  .main {
+    padding: 48px 24px;
+    gap: 32px;
+    border-radius: 0;
+    border: none;
+    box-shadow: none;
   }
 
   .intro h1 {
     font-size: 32px;
-    line-height: 40px;
-    letter-spacing: -1.92px;
-  }
-}
-
-@media (prefers-color-scheme: dark) {
-  .logo {
-    filter: invert();
+    letter-spacing: -0.02em;
   }
 
-  .page {
-    --background: #000;
-    --foreground: #000;
+  .ctas {
+    flex-direction: column;
+    align-items: stretch;
+  }
 
-    --text-primary: #ededed;
-    --text-secondary: #999;
-
-    --button-primary-hover: #ccc;
-    --button-secondary-hover: #1a1a1a;
-    --button-secondary-border: #1a1a1a;
+  .ctas a {
+    width: 100%;
   }
 }
