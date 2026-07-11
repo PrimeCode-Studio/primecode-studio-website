@@ -16,7 +16,8 @@ export default function Home() {
   }, []);
 
   return (
-    <main style={{ width: "100%", height: "100%", overflow: "hidden" }}>
+    <main style={{ width: "100%" }}>
+
       {!preloaderDone && (
         <Preloader 
           onSplitStart={() => setSplitStarted(true)} 

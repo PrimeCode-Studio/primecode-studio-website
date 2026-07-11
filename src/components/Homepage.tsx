@@ -3,10 +3,28 @@
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import Image from "next/image";
+import Link from "next/link";
 import styles from "./Homepage.module.css";
-import { ArrowRight, Code, Rocket, Sparkles, Globe, Layers, ShoppingCart, Cpu, Zap, LayoutGrid } from "lucide-react";
+import {
+  ArrowRight,
+  Code,
+  Rocket,
+  Sparkles,
+  Globe,
+  Layers,
+  ShoppingCart,
+  Cpu,
+  Zap,
+  LayoutGrid,
+} from "lucide-react";
 
-export default function Homepage({ show, isSkip }: { show: boolean, isSkip: boolean }) {
+export default function Homepage({
+  show,
+  isSkip,
+}: {
+  show: boolean;
+  isSkip: boolean;
+}) {
   const containerRef = useRef<HTMLDivElement>(null);
   const heroLeftRef = useRef<HTMLDivElement>(null);
   const heroRightRef = useRef<HTMLDivElement>(null);
@@ -33,35 +51,53 @@ export default function Homepage({ show, isSkip }: { show: boolean, isSkip: bool
       }
 
       // Sequential entrance
-      tl.from(navRef.current, {
-        y: -20,
-        opacity: 0,
-        duration: 0.8,
-        ease: "power2.out"
-      }, isSkip ? 0 : "-=0.5")
-      .from(heroLeftRef.current?.children || [], {
-        y: 30,
-        opacity: 0,
-        duration: 0.8,
-        stagger: 0.15,
-        ease: "power3.out"
-      }, "-=0.4")
-      .from(heroRightRef.current?.children || [], {
-        y: 50,
-        opacity: 0,
-        duration: 1,
-        stagger: 0.2,
-        ease: "power3.out"
-      }, "-=0.6")
-      .from(servicesRef.current, {
-        y: 40,
-        opacity: 0,
-        duration: 0.8,
-        ease: "power3.out"
-      }, "-=0.4");
+      tl.from(
+        navRef.current,
+        {
+          y: -20,
+          opacity: 0,
+          duration: 0.8,
+          ease: "power2.out",
+        },
+        isSkip ? 0 : "-=0.5",
+      )
+        .from(
+          heroLeftRef.current?.children || [],
+          {
+            y: 30,
+            opacity: 0,
+            duration: 0.8,
+            stagger: 0.15,
+            ease: "power3.out",
+          },
+          "-=0.4",
+        )
+        .from(
+          heroRightRef.current?.children || [],
+          {
+            y: 50,
+            opacity: 0,
+            duration: 1,
+            stagger: 0.2,
+            ease: "power3.out",
+          },
+          "-=0.6",
+        )
+        .from(
+          servicesRef.current,
+          {
+            y: 40,
+            opacity: 0,
+            duration: 0.8,
+            ease: "power3.out",
+          },
+          "-=0.4",
+        );
 
       // Floating animations for right side elements
-      const floaters = heroRightRef.current?.querySelectorAll(`.${styles.floatingCard}`);
+      const floaters = heroRightRef.current?.querySelectorAll(
+        `.${styles.floatingCard}`,
+      );
       if (floaters) {
         floaters.forEach((el, i) => {
           gsap.to(el, {
@@ -70,21 +106,23 @@ export default function Homepage({ show, isSkip }: { show: boolean, isSkip: bool
             yoyo: true,
             repeat: -1,
             ease: "sine.inOut",
-            delay: i * 0.2
+            delay: i * 0.2,
           });
         });
       }
-
     }, containerRef);
 
     return () => ctx.revert();
   }, [show, isSkip]);
 
   return (
-    <div 
-      ref={containerRef} 
+    <div
+      ref={containerRef}
       className={styles.homepage}
-      style={{ opacity: show || isSkip ? 1 : 0, pointerEvents: show || isSkip ? 'auto' : 'none' }}
+      style={{
+        opacity: show || isSkip ? 1 : 0,
+        pointerEvents: show || isSkip ? "auto" : "none",
+      }}
     >
       <div className={styles.glowBg}></div>
       <div className={styles.glowBg2}></div>
@@ -92,15 +130,26 @@ export default function Homepage({ show, isSkip }: { show: boolean, isSkip: bool
       <nav ref={navRef} className={styles.nav}>
         <div className={styles.logo}>
           <div className={styles.logoIcon}>
-            <Image src="/logo_without_bg.PNG" alt="PrimeCodeStudio Logo" width={36} height={36} />
+            <Image
+              src="/logo_without_bg.PNG"
+              alt="PrimeCodeStudio Logo"
+              width={36}
+              height={36}
+            />
           </div>
-          <span>PrimeCode<strong>Studio</strong></span>
+          <span>
+            PrimeCode<strong>Studio</strong>
+          </span>
         </div>
         <ul className={styles.navLinks}>
           <li className={styles.active}>Home</li>
           <li>Services</li>
           <li>Projects</li>
-          <li>About Us</li>
+
+          <li>
+            <Link href="/about">About Us</Link>
+          </li>
+
           <li>Contact</li>
         </ul>
         <button className={styles.primaryBtn}>
@@ -111,15 +160,20 @@ export default function Homepage({ show, isSkip }: { show: boolean, isSkip: bool
       <section className={styles.hero}>
         <div ref={heroLeftRef} className={styles.heroLeft}>
           <div className={styles.pill}>
-            <Sparkles size={14} className={styles.pillIcon} /> WE BUILD DIGITAL EXCELLENCE
+            <Sparkles size={14} className={styles.pillIcon} /> WE BUILD DIGITAL
+            EXCELLENCE
           </div>
           <h1 className={styles.title}>
-            Turning Ideas Into<br />
-            Powerful <span>Digital</span><br />
+            Turning Ideas Into
+            <br />
+            Powerful <span>Digital</span>
+            <br />
             <span>Experiences.</span>
           </h1>
           <p className={styles.subtitle}>
-            Prime Code Studio is a creative web development agency building modern websites, web applications, and AI-powered solutions for startups and businesses.
+            Prime Code Studio is a creative web development agency building
+            modern websites, web applications, and AI-powered solutions for
+            startups and businesses.
           </p>
           <div className={styles.actions}>
             <button className={`${styles.primaryBtn} ${styles.largeBtn}`}>
@@ -143,18 +197,29 @@ export default function Homepage({ show, isSkip }: { show: boolean, isSkip: bool
             </div>
             <div className={styles.mockupBody}>
               <div className={styles.mockupContent}>
-                <h2>Building the <span>future</span>,<br/>one <span>line</span> at a time.</h2>
+                <h2>
+                  Building the <span>future</span>,<br />
+                  one <span>line</span> at a time.
+                </h2>
                 <div className={styles.mockupActions}>
                   <button className={styles.mockupBtn}>Start a Project</button>
-                  <button className={styles.mockupBtnOutline}>View Our Work</button>
+                  <button className={styles.mockupBtnOutline}>
+                    View Our Work
+                  </button>
                 </div>
               </div>
               <div className={styles.codeSnippet}>
                 <pre>
                   <code>
-                    <span className={styles.tokenKeyword}>const</span> <span className={styles.tokenFunc}>innovate</span> = () <span className={styles.tokenKeyword}>=&gt;</span> {'{'}
-                    <br/>  <span className={styles.tokenKeyword}>return</span> <span className={styles.tokenString}>"Excellence"</span>;
-                    <br/>{'}'}
+                    <span className={styles.tokenKeyword}>const</span>{" "}
+                    <span className={styles.tokenFunc}>innovate</span> = (){" "}
+                    <span className={styles.tokenKeyword}>=&gt;</span> {"{"}
+                    <br /> <span className={styles.tokenKeyword}>
+                      return
+                    </span>{" "}
+                    <span className={styles.tokenString}>"Excellence"</span>;
+                    <br />
+                    {"}"}
                   </code>
                 </pre>
               </div>
@@ -197,7 +262,10 @@ export default function Homepage({ show, isSkip }: { show: boolean, isSkip: bool
         <div className={styles.sectionHeader}>
           <span className={styles.sectionPill}>WHAT WE DO</span>
           <h2>Services We Offer</h2>
-          <p>We provide end-to-end digital solutions to help your business grow, scale, and stand out in the digital world.</p>
+          <p>
+            We provide end-to-end digital solutions to help your business grow,
+            scale, and stand out in the digital world.
+          </p>
         </div>
         <div className={styles.servicesGrid}>
           <div className={styles.serviceCard}>
@@ -205,40 +273,69 @@ export default function Homepage({ show, isSkip }: { show: boolean, isSkip: bool
               <Globe size={24} />
             </div>
             <h3>Website Development</h3>
-            <p>High-performance, responsive websites that are fast, secure, and built to convert.</p>
-            <a href="#" className={styles.learnMore}>Learn More <ArrowRight size={14} /></a>
+            <p>
+              High-performance, responsive websites that are fast, secure, and
+              built to convert.
+            </p>
+            <a href="#" className={styles.learnMore}>
+              Learn More <ArrowRight size={14} />
+            </a>
           </div>
           <div className={styles.serviceCard}>
             <div className={styles.serviceIconWrap}>
               <Layers size={24} />
             </div>
-            <h3>Web Application<br/>Development</h3>
-            <p>Scalable web applications tailored to your business needs using modern tech.</p>
-            <a href="#" className={styles.learnMore}>Learn More <ArrowRight size={14} /></a>
+            <h3>
+              Web Application
+              <br />
+              Development
+            </h3>
+            <p>
+              Scalable web applications tailored to your business needs using
+              modern tech.
+            </p>
+            <a href="#" className={styles.learnMore}>
+              Learn More <ArrowRight size={14} />
+            </a>
           </div>
           <div className={styles.serviceCard}>
             <div className={styles.serviceIconWrap}>
               <ShoppingCart size={24} />
             </div>
             <h3>E-Commerce Solutions</h3>
-            <p>Powerful and user-friendly e-commerce platforms that drive sales and growth.</p>
-            <a href="#" className={styles.learnMore}>Learn More <ArrowRight size={14} /></a>
+            <p>
+              Powerful and user-friendly e-commerce platforms that drive sales
+              and growth.
+            </p>
+            <a href="#" className={styles.learnMore}>
+              Learn More <ArrowRight size={14} />
+            </a>
           </div>
           <div className={styles.serviceCard}>
             <div className={styles.serviceIconWrap}>
               <Cpu size={24} />
             </div>
             <h3>AI-Powered Solutions</h3>
-            <p>Integrate AI to automate processes, enhance user experience, and innovate.</p>
-            <a href="#" className={styles.learnMore}>Learn More <ArrowRight size={14} /></a>
+            <p>
+              Integrate AI to automate processes, enhance user experience, and
+              innovate.
+            </p>
+            <a href="#" className={styles.learnMore}>
+              Learn More <ArrowRight size={14} />
+            </a>
           </div>
           <div className={styles.serviceCard}>
             <div className={styles.serviceIconWrap}>
               <Rocket size={24} />
             </div>
             <h3>Startup Solutions</h3>
-            <p>MVP development, product strategy, and technical support for startups.</p>
-            <a href="#" className={styles.learnMore}>Learn More <ArrowRight size={14} /></a>
+            <p>
+              MVP development, product strategy, and technical support for
+              startups.
+            </p>
+            <a href="#" className={styles.learnMore}>
+              Learn More <ArrowRight size={14} />
+            </a>
           </div>
         </div>
       </section>

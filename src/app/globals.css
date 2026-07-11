@@ -40,6 +40,11 @@ html {
   scroll-behavior: smooth;
 }
 
+html,
+body {
+  height: 100vh;
+}
+
 body {
   min-height: 100%;
   display: flex;
