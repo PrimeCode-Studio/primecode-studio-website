@@ -240,7 +240,7 @@ export default function Homepage({
             <span>Experiences.</span>
           </h1>
           <p className={styles.subtitle}>
-            Prime Code Studio is a creative web development agency building
+            PrimeCodeStudio is a creative web development agency building
             modern websites, web applications, and AI-powered solutions for
             startups and businesses.
           </p>
@@ -271,10 +271,13 @@ export default function Homepage({
                   one <span>line</span> at a time.
                 </h2>
                 <div className={styles.mockupActions}>
-                  <button className={styles.mockupBtn}>Start a Project</button>
-                  <button className={styles.mockupBtnOutline}>
-                    View Our Work
-                  </button>
+                  <Link href="/contact" className={styles.mockupBtn}>
+  Start a Project
+</Link>
+
+<Link href="/projects" className={styles.mockupBtnOutline}>
+  View Our Work
+</Link>
                 </div>
               </div>
               <div className={styles.codeSnippet}>
@@ -315,8 +318,8 @@ export default function Homepage({
             </div>
             <div className={styles.statDivider}></div>
             <div className={styles.stat}>
-              <span className={styles.statLabel}>Clients Worldwide</span>
-              <span className={styles.statValue}>10+</span>
+              <span className={styles.statLabel}>Clients</span>
+              <span className={styles.statValue}>2+</span>
             </div>
             <div className={styles.statDivider}></div>
             <div className={styles.stat}>

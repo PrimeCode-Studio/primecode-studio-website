@@ -332,7 +332,7 @@
   background: var(--indigo);
   color: #ffffff;
   border: none;
-  padding: 0.55rem 1.1rem;
+  padding: 0.55rem .6rem;
   border-radius: 6px;
   font-size: 0.8rem;
   font-weight: 600;
@@ -849,13 +849,13 @@
 
   /* Full-width Stat Bar */
   .statsBar {
-    width: 100%;
+    width: 35%;
     left: 0;
-    margin: 2rem 0;
-    padding: 1.5rem;
+    margin: 1rem 0.5rem;
+    padding: 1rem;
     border-radius: 20px;
     box-shadow: 0 12px 32px rgba(11, 13, 18, 0.04);
-    flex-direction: column;
+    flex-direction: row;
     gap: 1.5rem;
   }
 
@@ -880,7 +880,7 @@
   .dashboardMockup {
     width: 100%;
     height: auto;
-    min-height: 300px;
+    min-height: 250px;
     transform: none;
     border-radius: 20px;
   }
@@ -890,7 +890,7 @@
   }
 
   .mockupContent h2 {
-    font-size: 1.4rem;
+    font-size: 1rem;
   }
 
   .codeSnippet {
