@@ -25,19 +25,9 @@ const SERVICES = [
       "Custom design & development",
       "SEO-optimized architecture",
       "Mobile-first responsive builds",
-      "Sub-second load times",
-    ],
-  },
-  {
-    icon: Layers,
-    title: "Web Application Development",
-    description:
-      "Scalable web applications tailored to your business logic, built on modern, maintainable tech stacks.",
-    features: [
       "React / Next.js front-ends",
-      "REST & GraphQL APIs",
+      "REST APIs",
       "Role-based access control",
-      "Cloud-native deployment",
     ],
   },
   {

@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import Preloader from "@/components/Preloader";
 import Homepage from "@/components/Homepage";
 
@@ -15,13 +15,20 @@ export default function Home() {
     }
   }, []);
 
+  const handleSplitStart = useCallback(() => {
+    setSplitStarted(true);
+  }, []);
+
+  const handleComplete = useCallback(() => {
+    setPreloaderDone(true);
+  }, []);
+
   return (
     <main style={{ width: "100%" }}>
-
       {!preloaderDone && (
-        <Preloader 
-          onSplitStart={() => setSplitStarted(true)} 
-          onComplete={() => setPreloaderDone(true)} 
+        <Preloader
+          onSplitStart={handleSplitStart}
+          onComplete={handleComplete}
         />
       )}
       <Homepage show={splitStarted} isSkip={preloaderDone} />
