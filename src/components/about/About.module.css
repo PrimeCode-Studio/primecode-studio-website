@@ -217,7 +217,28 @@
   line-height: 1.6;
   margin-bottom: 1.1rem;
 }
+.teamSection {
+  margin-top: 4rem;
+}
 
+.teamTitle {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 2rem;
+  text-align: center;
+  position: relative;
+}
+
+.teamTitle::after {
+  content: "";
+  width: 70px;
+  height: 3px;
+  background: var(--primary);
+  display: block;
+  margin: 0.8rem auto 0;
+  border-radius: 10px;
+}
 .teamSocials {
   display: flex;
   justify-content: center;

@@ -813,3 +813,174 @@
     animation: none !important;
   }
 }
+
+/* ==========================================================================
+   MODERN ELEGANT MOBILE REFINEMENTS
+   ========================================================================== */
+
+@media (max-width: 768px) {
+  .homepage {
+    padding: 0 6%;
+  }
+
+  .nav {
+    margin: 0 -6%;
+    padding-left: 6%;
+    padding-right: 6%;
+  }
+
+  .hero {
+    padding-top: 4rem;
+    padding-bottom: 2rem;
+  }
+
+  .title {
+    font-size: clamp(2rem, 9vw, 2.8rem);
+    letter-spacing: -0.04em;
+    line-height: 1.1;
+  }
+
+  .subtitle {
+    font-size: 1.05rem;
+    line-height: 1.6;
+    color: var(--muted);
+    margin-bottom: 2rem;
+  }
+
+  /* Full-width Stat Bar */
+  .statsBar {
+    width: 100%;
+    left: 0;
+    margin: 2rem 0;
+    padding: 1.5rem;
+    border-radius: 20px;
+    box-shadow: 0 12px 32px rgba(11, 13, 18, 0.04);
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .stat {
+    width: 100%;
+    padding: 0.75rem 0;
+  }
+
+  .statDivider {
+    width: 100%;
+    height: 1px;
+    opacity: 0.5;
+  }
+
+  /* Full-width Demo/Dashboard Mockup */
+  .heroRight {
+    width: 100%;
+    padding: 0;
+    margin-top: 1rem;
+  }
+
+  .dashboardMockup {
+    width: 100%;
+    height: auto;
+    min-height: 300px;
+    transform: none;
+    border-radius: 20px;
+  }
+
+  .mockupBody {
+    padding: 1.5rem;
+  }
+
+  .mockupContent h2 {
+    font-size: 1.4rem;
+  }
+
+  .codeSnippet {
+    display: none; /* Keep it clean on mobile */
+  }
+
+  .sectionHeader h2 {
+    font-size: 2.2rem;
+  }
+
+  .serviceCard {
+    padding: 2rem;
+    border-radius: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .homepage {
+    padding: 0 5%;
+  }
+
+  .nav {
+    margin: 0 -5%;
+    padding-left: 5%;
+    padding-right: 5%;
+    padding-top: 1.2rem;
+    padding-bottom: 1.2rem;
+  }
+
+  .logo {
+    font-size: 1rem;
+  }
+
+  .hero {
+    padding-top: 3rem;
+  }
+
+  .title {
+    font-size: 2.1rem;
+  }
+
+  .actions {
+    width: 100%;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .primaryBtn, .secondaryBtn {
+    width: 100%;
+    justify-content: center;
+    padding: 0.85rem 1.5rem;
+    font-size: 0.95rem;
+  }
+
+  .statsBar {
+    padding: 1.25rem;
+    border-radius: 16px;
+  }
+
+  .statValue {
+    font-size: 1.5rem;
+  }
+
+  .sectionHeader {
+    margin-bottom: 2.5rem;
+  }
+
+  .sectionHeader h2 {
+    font-size: 1.8rem;
+  }
+
+  .serviceCard {
+    padding: 1.75rem;
+  }
+}
+
+@media (max-width: 375px) {
+  .title {
+    font-size: 1.9rem;
+  }
+
+  .subtitle {
+    font-size: 0.95rem;
+  }
+
+  .dashboardMockup {
+    min-height: 260px;
+  }
+
+  .mockupContent h2 {
+    font-size: 1.2rem;
+  }
+}

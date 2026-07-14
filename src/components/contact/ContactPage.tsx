@@ -21,14 +21,14 @@ const CONTACT_INFO = [
   {
     icon: Mail,
     label: "Email",
-    value: "hello@primecodestudio.com",
-    href: "mailto:hello@primecodestudio.com",
+    value: "primecodestudio11@gmail.com",
+    href: "mailto:primecodestudio11@gmail.com",
   },
   {
     icon: Phone,
     label: "Phone",
-    value: "+91 98765 43210",
-    href: "tel:+919876543210",
+    value: "+91 7304414905",
+    href: "mob:+91 7304414905",
   },
   {
     icon: MapPin,

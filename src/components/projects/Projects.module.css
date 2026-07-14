@@ -73,6 +73,41 @@
 }
 
 /* PROJECTS */
+.comingSoon {
+  min-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 2rem;
+}
+
+.badge {
+  padding: 8px 18px;
+  margin-bottom: 20px;
+  border-radius: 999px;
+  background: rgba(59, 130, 246, 0.15);
+  color: #60a5fa;
+  border: 1px solid rgba(59, 130, 246, 0.3);
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.comingSoon h1 {
+  font-size: clamp(3rem, 8vw, 5rem);
+  color: #000000;
+  margin-bottom: 16px;
+}
+
+.comingSoon p {
+  max-width: 600px;
+  color: black;
+  font-size: 1.1rem;
+  line-height: 1.8;
+  margin-bottom: 35px;
+}
+
 .projectsSection {
   padding: 1rem 4% 6rem;
   display: flex;

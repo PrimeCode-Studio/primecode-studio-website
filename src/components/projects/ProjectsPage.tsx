@@ -95,7 +95,7 @@ export default function ProjectsPage() {
           ))}
         </div>
 
-        <div className={styles.projectsGrid}>
+        {/* <div className={styles.projectsGrid}>
           {filtered.map((project) => (
             <div key={project.title} className={styles.projectCard}>
               <div className={styles.projectThumb}>
@@ -113,7 +113,21 @@ export default function ProjectsPage() {
               </div>
             </div>
           ))}
-        </div>
+        </div> */}
+        <div className={styles.comingSoon}>
+  <span className={styles.badge}>🚀 Under Development ⌚</span>
+
+  <h1>Coming Soon</h1>
+
+  <p>
+    We're building something amazing. This Section is currently under development
+    and will be available soon.
+  </p>
+
+  <Link href="/" className={styles.backBtn}>
+    ← Back to Home
+  </Link>
+</div>
       </section>
 
       <section className={styles.ctaSection}>
