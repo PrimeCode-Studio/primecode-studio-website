@@ -17,6 +17,14 @@ import styles from "./Contact.module.css";
 
 type Status = "idle" | "loading" | "success" | "error";
 
+const EMPTY_FORM = {
+  name: "",
+  email: "",
+  subject: "",
+  message: "",
+  honeypot: "",
+};
+
 const CONTACT_INFO = [
   {
     icon: Mail,
@@ -27,8 +35,8 @@ const CONTACT_INFO = [
   {
     icon: Phone,
     label: "Phone",
-    value: "+91 7304414905",
-    href: "mob:+91 7304414905",
+    value: "+91 73044 14905",
+    href: "tel:+917304414905",
   },
   {
     icon: MapPin,
@@ -38,16 +46,25 @@ const CONTACT_INFO = [
   },
 ];
 
+const FAQS = [
+  {
+    q: "How quickly will you reply?",
+    a: "Within one business day. If it's urgent, WhatsApp is the fastest way to reach us.",
+  },
+  {
+    q: "What should I include in my message?",
+    a: "A sentence or two about what you're building, your rough timeline, and any budget range you have in mind. Anything else helps but isn't required.",
+  },
+  {
+    q: "Do you sign NDAs?",
+    a: "Yes, we're happy to sign an NDA before you share details about your project.",
+  },
+];
+
 export default function ContactPage() {
   const [status, setStatus] = useState<Status>("idle");
   const [errorMsg, setErrorMsg] = useState("");
-  const [form, setForm] = useState({
-    name: "",
-    email: "",
-    subject: "",
-    message: "",
-    honeypot: "",
-  });
+  const [form, setForm] = useState(EMPTY_FORM);
 
   function handleChange(
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
@@ -73,10 +90,12 @@ export default function ContactPage() {
       }
 
       setStatus("success");
-      setForm({ name: "", email: "", subject: "", message: "", honeypot: "" });
+      setForm(EMPTY_FORM);
     } catch (err) {
       setStatus("error");
-      setErrorMsg(err instanceof Error ? err.message : "Something went wrong.");
+      setErrorMsg(
+        err instanceof Error ? err.message : "Something went wrong.",
+      );
     }
   }
 
@@ -84,146 +103,178 @@ export default function ContactPage() {
     <div className={styles.page}>
       <Nav />
 
-      <section className={styles.hero}>
-        <div className={styles.glowBg} />
-        <span className={styles.pill}>
-          <Sparkles size={14} /> GET IN TOUCH
-        </span>
-        <h1 className={styles.title}>
-          Let&apos;s Build
-          <br />
-          <span>Something Great</span>
-        </h1>
-        <p className={styles.subtitle}>
-          Tell us about your project and we&apos;ll get back to you within
-          one business day.
-        </p>
-      </section>
-
-      <section className={styles.contactSection}>
-        <div className={styles.contactGrid}>
-          <div className={styles.infoCol}>
-            {CONTACT_INFO.map((item) => {
-              const Icon = item.icon;
-              const content = (
-                <>
-                  <div className={styles.infoIconWrap}>
-                    <Icon size={20} />
-                  </div>
-                  <div>
-                    <span className={styles.infoLabel}>{item.label}</span>
-                    <span className={styles.infoValue}>{item.value}</span>
-                  </div>
-                </>
-              );
-              return item.href ? (
-                <a key={item.label} href={item.href} className={styles.infoCard}>
-                  {content}
-                </a>
-              ) : (
-                <div key={item.label} className={styles.infoCard}>
-                  {content}
-                </div>
-              );
-            })}
+      <main id="main">
+        <section className={styles.hero}>
+          <div className={`container ${styles.heroInner}`}>
+            <span className="pill">
+              <Sparkles size={12} /> Get in touch
+            </span>
+            <h1 className={`display ${styles.heroTitle}`}>
+              Let&apos;s build{" "}
+              <span className={styles.accent}>something great</span>
+            </h1>
+            <p className={`lede ${styles.heroLede}`}>
+              Tell us about your project and we&apos;ll get back to you within
+              one business day.
+            </p>
           </div>
+        </section>
 
-          <form className={styles.form} onSubmit={handleSubmit}>
-            {/* Honeypot field, hidden from real users */}
-            <input
-              type="text"
-              name="honeypot"
-              value={form.honeypot}
-              onChange={handleChange}
-              className={styles.honeypot}
-              tabIndex={-1}
-              autoComplete="off"
-              aria-hidden="true"
-            />
+        <section className={styles.contactSection}>
+          <div className={`container ${styles.contactGrid}`}>
+            {/* ---- Info column ---- */}
+            <aside className={styles.infoCol}>
+              <h2 className="h3">Prefer to reach out directly?</h2>
 
-            <div className={styles.formRow}>
-              <div className={styles.field}>
-                <label htmlFor="name">Name</label>
-                <input
-                  id="name"
-                  name="name"
-                  type="text"
-                  placeholder="Your name"
-                  value={form.name}
-                  onChange={handleChange}
-                  required
-                />
+              <div className={styles.infoList}>
+                {CONTACT_INFO.map((item) => {
+                  const Icon = item.icon;
+                  const content = (
+                    <>
+                      <span className={styles.infoIconWrap}>
+                        <Icon size={17} strokeWidth={1.8} />
+                      </span>
+                      <span className={styles.infoText}>
+                        <span className={styles.infoLabel}>{item.label}</span>
+                        <span className={styles.infoValue}>{item.value}</span>
+                      </span>
+                    </>
+                  );
+
+                  return item.href ? (
+                    <a
+                      key={item.label}
+                      href={item.href}
+                      className={styles.infoCard}
+                    >
+                      {content}
+                    </a>
+                  ) : (
+                    <div key={item.label} className={styles.infoCard}>
+                      {content}
+                    </div>
+                  );
+                })}
               </div>
-              <div className={styles.field}>
-                <label htmlFor="email">Email</label>
-                <input
-                  id="email"
-                  name="email"
-                  type="email"
-                  placeholder="you@company.com"
-                  value={form.email}
-                  onChange={handleChange}
-                  required
-                />
-              </div>
-            </div>
 
-            <div className={styles.field}>
-              <label htmlFor="subject">Subject</label>
+              <div className={styles.faqBlock}>
+                <h3 className={styles.faqHeading}>Common questions</h3>
+                <div className="faqList">
+                  {FAQS.map((faq) => (
+                    <details key={faq.q} className="faqItem">
+                      <summary>{faq.q}</summary>
+                      <p className="faqAnswer">{faq.a}</p>
+                    </details>
+                  ))}
+                </div>
+              </div>
+            </aside>
+
+            {/* ---- Form ---- */}
+            <form className={styles.form} onSubmit={handleSubmit}>
+              <h2 className="h3">Send us a message</h2>
+
+              {/* Honeypot — off-screen, not display:none */}
               <input
-                id="subject"
-                name="subject"
                 type="text"
-                placeholder="What's this about?"
-                value={form.subject}
+                name="honeypot"
+                value={form.honeypot}
                 onChange={handleChange}
+                className={styles.honeypot}
+                tabIndex={-1}
+                autoComplete="off"
+                aria-hidden="true"
               />
-            </div>
 
-            <div className={styles.field}>
-              <label htmlFor="message">Message</label>
-              <textarea
-                id="message"
-                name="message"
-                rows={6}
-                placeholder="Tell us about your project..."
-                value={form.message}
-                onChange={handleChange}
-                required
-              />
-            </div>
-
-            <button
-              type="submit"
-              className={styles.submitBtn}
-              disabled={status === "loading"}
-            >
-              {status === "loading" ? (
-                <>
-                  <Loader2 size={16} className={styles.spin} /> Sending...
-                </>
-              ) : (
-                <>
-                  Send Message <Send size={16} />
-                </>
-              )}
-            </button>
-
-            {status === "success" && (
-              <div className={styles.successMsg}>
-                <CheckCircle2 size={16} />
-                Message sent! We&apos;ll get back to you within one business day.
+              <div className={styles.formRow}>
+                <div className={styles.field}>
+                  <label htmlFor="name">Name</label>
+                  <input
+                    id="name"
+                    name="name"
+                    type="text"
+                    placeholder="Your name"
+                    value={form.name}
+                    onChange={handleChange}
+                    required
+                    autoComplete="name"
+                  />
+                </div>
+                <div className={styles.field}>
+                  <label htmlFor="email">Email</label>
+                  <input
+                    id="email"
+                    name="email"
+                    type="email"
+                    placeholder="you@company.com"
+                    value={form.email}
+                    onChange={handleChange}
+                    required
+                    autoComplete="email"
+                  />
+                </div>
               </div>
-            )}
-            {status === "error" && (
-              <div className={styles.errorMsg}>
-                <AlertCircle size={16} />
-                {errorMsg}
+
+              <div className={styles.field}>
+                <label htmlFor="subject">Subject</label>
+                <input
+                  id="subject"
+                  name="subject"
+                  type="text"
+                  placeholder="What's this about?"
+                  value={form.subject}
+                  onChange={handleChange}
+                />
               </div>
-            )}
-          </form>
-        </div>
-      </section>
+
+              <div className={styles.field}>
+                <label htmlFor="message">Message</label>
+                <textarea
+                  id="message"
+                  name="message"
+                  rows={6}
+                  placeholder="Tell us about your project..."
+                  value={form.message}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+
+              <button
+                type="submit"
+                className={`btn btnPrimary btnLg ${styles.submitBtn}`}
+                disabled={status === "loading"}
+              >
+                {status === "loading" ? (
+                  <>
+                    <Loader2 size={16} className={styles.spin} /> Sending…
+                  </>
+                ) : (
+                  <>
+                    Send message <Send size={16} />
+                  </>
+                )}
+              </button>
+
+              <div aria-live="polite">
+                {status === "success" && (
+                  <p className={styles.successMsg}>
+                    <CheckCircle2 size={16} />
+                    Message sent! We&apos;ll get back to you within one business
+                    day.
+                  </p>
+                )}
+                {status === "error" && (
+                  <p className={styles.errorMsg}>
+                    <AlertCircle size={16} />
+                    {errorMsg}
+                  </p>
+                )}
+              </div>
+            </form>
+          </div>
+        </section>
+      </main>
 
       <Footer />
     </div>

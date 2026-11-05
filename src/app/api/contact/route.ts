@@ -1,15 +1,100 @@
 import { NextRequest, NextResponse } from "next/server";
 import nodemailer from "nodemailer";
 
+/* ---------------------------------------------------------------------------
+   Helpers
+   ------------------------------------------------------------------------- */
+
+/** Escapes a value for safe interpolation into an HTML email body. */
+function escapeHtml(value: unknown): string {
+  return String(value ?? "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+}
+
+/** Collapses whitespace and trims control characters used for header abuse. */
+function clean(value: unknown, max = 200): string {
+  return String(value ?? "")
+    .replace(/[\r\n\t]+/g, " ")
+    .trim()
+    .slice(0, max);
+}
+
+/* ---------------------------------------------------------------------------
+   Naive in-memory rate limiter.
+   Works for a single instance; swap for Upstash/Redis if you scale out.
+   ------------------------------------------------------------------------- */
+
+const WINDOW_MS = 60 * 60 * 1000; // 1 hour
+const MAX_REQUESTS = 5; // per IP per window
+
+type Bucket = { count: number; resetAt: number };
+const buckets = new Map<string, Bucket>();
+
+function isRateLimited(ip: string): boolean {
+  const now = Date.now();
+  const bucket = buckets.get(ip);
+
+  if (!bucket || now > bucket.resetAt) {
+    buckets.set(ip, { count: 1, resetAt: now + WINDOW_MS });
+    return false;
+  }
+
+  bucket.count += 1;
+
+  if (buckets.size > 5000) {
+    for (const [key, value] of buckets) {
+      if (now > value.resetAt) buckets.delete(key);
+    }
+  }
+
+  return bucket.count > MAX_REQUESTS;
+}
+
+function clientIp(request: NextRequest): string {
+  const forwarded = request.headers.get("x-forwarded-for");
+  if (forwarded) return forwarded.split(",")[0].trim();
+  return request.headers.get("x-real-ip") ?? "unknown";
+}
+
 export async function POST(request: NextRequest) {
   try {
-    const body = await request.json();
-    const { name, email, subject, message, honeypot } = body;
+    const ip = clientIp(request);
+
+    if (isRateLimited(ip)) {
+      return NextResponse.json(
+        {
+          success: false,
+          error: "Too many messages sent. Please try again later.",
+        },
+        { status: 429, headers: { "Retry-After": "3600" } },
+      );
+    }
+
+    let body: Record<string, unknown>;
+    try {
+      body = await request.json();
+    } catch {
+      return NextResponse.json(
+        { success: false, error: "Invalid request body." },
+        { status: 400 },
+      );
+    }
+
+    const { honeypot } = body;
 
     // Honeypot field — bots fill hidden fields, humans don't.
     if (honeypot) {
       return NextResponse.json({ success: true });
     }
+
+    const name = clean(body.name, 120);
+    const email = clean(body.email, 200);
+    const subject = clean(body.subject, 160);
+    const message = String(body.message ?? "").trim().slice(0, 5000);
 
     if (!name || !email || !message) {
       return NextResponse.json(
@@ -166,7 +251,7 @@ style="
 padding:14px;
 border:1px solid #e5e7eb;
 ">
-${name}
+${escapeHtml(name)}
 </td>
 </tr>
 
@@ -188,7 +273,7 @@ padding:14px;
 border:1px solid #e5e7eb;
 word-break:break-word;
 ">
-${email}
+${escapeHtml(email)}
 </td>
 
 </tr>
@@ -210,7 +295,7 @@ style="
 padding:14px;
 border:1px solid #e5e7eb;
 ">
-${subject || "General Inquiry"}
+${escapeHtml(subject || "General Inquiry")}
 </td>
 
 </tr>
@@ -244,7 +329,7 @@ color:#374151;
 white-space:pre-line;
 word-break:break-word;
 ">
-${message}
+${escapeHtml(message)}
 </p>
 
 </div>
@@ -315,13 +400,4 @@ console.log("✅ Email sent:", info);
       { status: 500 },
     );
   }
-}
-
-function escapeHtml(str: string) {
-  return str
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#039;");
 }

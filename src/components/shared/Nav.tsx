@@ -5,13 +5,13 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { ArrowRight, Menu, X } from "lucide-react";
+import { useBodyScrollLock } from "@/lib/scrollLock";
 import styles from "./Nav.module.css";
 
 const LINKS = [
-  { label: "Home", href: "/" },
   { label: "Services", href: "/services" },
   { label: "Projects", href: "/projects" },
-  { label: "About Us", href: "/about" },
+  { label: "About", href: "/about" },
   { label: "Contact", href: "/contact" },
 ];
 
@@ -19,86 +19,96 @@ export default function Nav() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
 
-  // Lock body scroll while the mobile menu is open, and close on route change.
-  useEffect(() => {
-    setOpen(false);
-  }, [pathname]);
+  // Close the panel on navigation without a setState-in-effect cascade.
+  const [lastPath, setLastPath] = useState(pathname);
+  if (pathname !== lastPath) {
+    setLastPath(pathname);
+    if (open) setOpen(false);
+  }
+
+  useBodyScrollLock(open);
 
   useEffect(() => {
-    document.body.style.overflow = open ? "hidden" : "";
-    return () => {
-      document.body.style.overflow = "";
+    if (!open) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setOpen(false);
     };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
   }, [open]);
 
   return (
-    <nav className={styles.nav}>
-      <Link href="/" className={styles.logo}>
-        <div className={styles.logoIcon}>
-          <Image
-            src="/logo_without_bg.PNG"
-            alt="PrimeCodeStudio Logo"
-            width={36}
-            height={36}
-          />
-        </div>
-        <span>
-          PrimeCode<strong>Studio</strong>
-        </span>
-      </Link>
-
-      <ul className={styles.navLinks}>
-        {LINKS.map((link) => (
-          <li
-            key={link.href}
-            className={pathname === link.href ? styles.active : ""}
-          >
-            <Link href={link.href}>{link.label}</Link>
-          </li>
-        ))}
-      </ul>
-
-      <Link href="/contact" className={styles.primaryBtn}>
-        Let&apos;s Build Together <ArrowRight size={16} />
-      </Link>
-
-      <button
-        className={styles.menuToggle}
-        aria-label={open ? "Close menu" : "Open menu"}
-        aria-expanded={open}
-        onClick={() => setOpen((v) => !v)}
-      >
-        {open ? <X size={22} /> : <Menu size={22} />}
-      </button>
-
-      <div
-        className={`${styles.mobilePanel} ${open ? styles.mobilePanelOpen : ""}`}
-      >
-        <ul className={styles.mobileLinks}>
-          {LINKS.map((link, i) => (
-            <li
-              key={link.href}
-              className={pathname === link.href ? styles.mobileActive : ""}
-              style={{ transitionDelay: open ? `${i * 0.05}s` : "0s" }}
-            >
-              <Link href={link.href} onClick={() => setOpen(false)}>
-                {link.label}
-              </Link>
-            </li>
-          ))}
-        </ul>
-        <Link
-          href="/contact"
-          className={styles.mobilePrimaryBtn}
-          onClick={() => setOpen(false)}
-        >
-          Let&apos;s Build Together <ArrowRight size={16} />
+    <header className={styles.header}>
+      <div className={`container ${styles.inner}`}>
+        <Link href="/" className={styles.logo} aria-label="PrimeCodeStudio home">
+          <span className={styles.logoMark}>
+            <Image
+              src="/logo_without_bg.PNG"
+              alt=""
+              width={30}
+              height={30}
+              priority
+            />
+          </span>
+          <span className={styles.logoText}>
+            PrimeCode<strong>Studio</strong>
+          </span>
         </Link>
+
+        <nav className={styles.navLinks} aria-label="Primary">
+          {LINKS.map((link) => (
+            <Link
+              key={link.href}
+              href={link.href}
+              className={styles.navLink}
+              aria-current={pathname === link.href ? "page" : undefined}
+            >
+              {link.label}
+            </Link>
+          ))}
+        </nav>
+
+        <div className={styles.actions}>
+          <Link href="/contact" className="btn btnPrimary btnSm">
+            Start a project
+            <ArrowRight size={15} />
+          </Link>
+
+          <button
+            className={styles.menuToggle}
+            aria-label={open ? "Close menu" : "Open menu"}
+            aria-expanded={open}
+            aria-controls="mobile-menu"
+            onClick={() => setOpen((v) => !v)}
+          >
+            {open ? <X size={20} /> : <Menu size={20} />}
+          </button>
+        </div>
       </div>
 
-      {open && (
-        <div className={styles.backdrop} onClick={() => setOpen(false)} />
-      )}
-    </nav>
+      <div
+        id="mobile-menu"
+        className={`${styles.mobilePanel} ${open ? styles.mobilePanelOpen : ""}`}
+        inert={!open}
+      >
+        <nav className={`container ${styles.mobileInner}`} aria-label="Mobile">
+          {LINKS.map((link) => (
+            <Link
+              key={link.href}
+              href={link.href}
+              className={styles.mobileLink}
+              aria-current={pathname === link.href ? "page" : undefined}
+            >
+              {link.label}
+              <ArrowRight size={17} />
+            </Link>
+          ))}
+          <Link href="/contact" className="btn btnPrimary btnLg">
+            Start a project
+            <ArrowRight size={16} />
+          </Link>
+        </nav>
+      </div>
+    </header>
   );
 }

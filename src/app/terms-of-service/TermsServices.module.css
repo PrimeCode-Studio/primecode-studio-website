@@ -1,175 +1,119 @@
 .container {
-  background: #0b1120;
-  color: #e5e7eb;
-  padding: 100px 20px 60px;
+  width: 100%;
+  max-width: 820px;
+  margin-inline: auto;
+  padding: clamp(2rem, 5vw, 3.5rem) var(--gutter) clamp(4rem, 8vw, 6rem);
+}
+
+.inner {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.back {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--ink-2);
+  width: fit-content;
+  transition: color 0.18s var(--ease);
+}
+
+.back:hover {
+  color: var(--ink);
+  text-decoration: none;
 }
 
 .hero {
-  max-width: 900px;
-  margin: 0 auto 50px;
-  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  align-items: flex-start;
+  padding-bottom: 1.75rem;
+  border-bottom: 1px solid var(--line);
 }
 
-.hero h1 {
-  font-size: clamp(2.5rem, 6vw, 4rem);
+.title {
+  font-size: clamp(2rem, 4.5vw, 3rem);
+  line-height: 1.06;
+  letter-spacing: -0.03em;
   font-weight: 700;
-  color: #ffffff;
-  margin-bottom: 16px;
-  letter-spacing: -1px;
-}
-
-.hero p {
-  color: #94a3b8;
-  font-size: 1rem;
 }
 
 .content {
-  max-width: 900px;
-  margin: 0 auto;
-  background: #111827;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 18px;
-  padding: 45px;
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
-}
-
-.content > p:first-child {
-  margin-bottom: 35px;
-}
-
-.content section {
-  margin-bottom: 40px;
-}
-
-.content h2 {
-  font-size: 1.5rem;
-  color: #60a5fa;
-  margin-bottom: 16px;
-  padding-bottom: 8px;
-  border-bottom: 1px solid rgba(96, 165, 250, 0.2);
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+  color: var(--ink-2);
+  font-size: 0.9688rem;
+  line-height: 1.72;
 }
 
 .content p {
-  color: #cbd5e1;
-  line-height: 1.8;
-  margin-bottom: 16px;
+  max-width: 72ch;
+}
+
+.content section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+}
+
+.content h2 {
+  font-size: 1.0625rem;
+  font-weight: 650;
+  letter-spacing: -0.015em;
+  color: var(--ink);
 }
 
 .content ul {
-  margin: 16px 0 0 22px;
-  color: #cbd5e1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
 }
 
 .content li {
-  margin-bottom: 10px;
-  line-height: 1.8;
+  position: relative;
+  padding-left: 1.1rem;
+}
+
+.content li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.62em;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--brand);
 }
 
 .content strong {
-  color: #ffffff;
+  color: var(--ink);
+  font-weight: 650;
 }
 
 .contactBox {
-  margin-top: 20px;
-  padding: 22px;
-  background: rgba(30, 41, 59, 0.8);
-  border: 1px solid rgba(96, 165, 250, 0.25);
-  border-left: 4px solid #60a5fa;
-  border-radius: 12px;
-  line-height: 1.8;
-  color: #cbd5e1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  margin-top: 0.4rem;
+  padding: 1.25rem 1.5rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  background: var(--bg-soft);
+  font-size: 0.9rem;
 }
 
 .contactBox strong {
-  display: inline-block;
-  margin-bottom: 8px;
-  color: #60a5fa;
-  font-size: 1.05rem;
-}
-.backBtn {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  margin-bottom: 40px;
-  padding: 12px 22px;
-  background: linear-gradient(135deg, #2563eb, #3b82f6);
-  color: #fff;
-  text-decoration: none;
   font-size: 0.95rem;
-  font-weight: 600;
-  border: none;
-  border-radius: 10px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 8px 20px rgba(37, 99, 235, 0.35);
 }
 
-.backBtn:hover {
-  transform: translateY(-2px);
-  background: linear-gradient(135deg, #1d4ed8, #2563eb);
-  box-shadow: 0 12px 28px rgba(37, 99, 235, 0.45);
-}
-
-.backBtn:active {
-  transform: translateY(0);
-}
-
-.backBtn:focus-visible {
-  outline: 2px solid #60a5fa;
-  outline-offset: 4px;
-}
-
-@media (max-width: 768px) {
-  .container {
-    padding: 80px 16px 40px;
-  }
-
-  .hero {
-    margin-bottom: 35px;
-  }
-
-  .hero h1 {
-    font-size: 2.4rem;
-  }
-
-  .hero p {
-    font-size: 0.95rem;
-  }
-
+@media (max-width: 560px) {
   .content {
-    padding: 28px 20px;
-    border-radius: 14px;
-  }
-
-  .content h2 {
-    font-size: 1.3rem;
-  }
-
-  .content p,
-  .content li {
-    font-size: 0.95rem;
-  }
-
-  .contactBox {
-    padding: 18px;
-  }
-}
-
-@media (max-width: 480px) {
-  .hero h1 {
-    font-size: 2rem;
-  }
-
-  .content {
-    padding: 22px 18px;
-  }
-
-  .content h2 {
-    font-size: 1.2rem;
-  }
-
-  .content p,
-  .content li {
-    line-height: 1.7;
+    font-size: 0.9375rem;
   }
 }
