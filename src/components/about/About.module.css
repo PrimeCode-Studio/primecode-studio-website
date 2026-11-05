@@ -1,284 +1,290 @@
+/* ==========================================================================
+   About page
+   ========================================================================== */
+
 .page {
   width: 100%;
-  min-height: 100vh;
-  background: var(--background);
-  color: var(--text-primary);
-  overflow-x: hidden;
+  background: var(--bg);
+  color: var(--ink);
 }
 
-/* HERO */
+/* ---- Hero ---- */
+
 .hero {
-  position: relative;
-  padding: 5.5rem 4% 4.5rem;
-  text-align: center;
+  padding-top: clamp(3.5rem, 7vw, 6rem);
+  padding-bottom: clamp(2.5rem, 5vw, 4rem);
+  background:
+    radial-gradient(
+      120% 80% at 50% -10%,
+      var(--bg-tint) 0%,
+      rgba(238, 241, 255, 0.4) 40%,
+      var(--bg) 75%
+    );
+}
+
+.heroInner {
   display: flex;
   flex-direction: column;
-  align-items: center;
-}
-
-.glowBg {
-  position: absolute;
-  top: -10%;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 60vw;
-  height: 50vh;
-  background: radial-gradient(circle, rgba(52, 82, 255, 0.07) 0%, transparent 65%);
-  z-index: 0;
-  pointer-events: none;
-}
-
-.pill {
-  position: relative;
-  z-index: 1;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.4rem 0.9rem;
-  background: var(--card-bg);
-  border: 1px solid var(--card-border-strong);
-  border-radius: 20px;
-  font-size: 0.7rem;
-  font-weight: 700;
-  letter-spacing: 1px;
-  color: var(--primary);
-  margin-bottom: 1.5rem;
-  box-shadow: 0 1px 2px rgba(11, 13, 18, 0.04);
+  align-items: flex-start;
+  gap: 1.4rem;
+  max-width: 62ch;
 }
 
 .heroTitle {
-  position: relative;
-  z-index: 1;
-  font-size: clamp(2.1rem, 6vw, 3.4rem);
-  line-height: 1.1;
-  font-weight: 700;
-  letter-spacing: -0.035em;
-  margin-bottom: 1.5rem;
+  max-width: 22ch;
 }
 
-.heroTitle span {
-  background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+.accent {
+  color: var(--brand);
 }
 
-.heroSubtitle {
-  position: relative;
-  z-index: 1;
-  font-size: 1.08rem;
-  color: var(--text-secondary);
-  line-height: 1.7;
-  max-width: 640px;
+.heroLede {
+  max-width: 58ch;
 }
 
-/* MISSION */
-.mission {
-  padding: 1rem 4% 6rem;
+/* ---- Stats strip ---- */
+
+.statsStrip {
+  border-block: 1px solid var(--line);
 }
+
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  padding-block: clamp(1.75rem, 3.5vw, 2.5rem);
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  padding-left: 1.25rem;
+  border-left: 1px solid var(--line);
+}
+
+.stat:first-child {
+  padding-left: 0;
+  border-left: 0;
+}
+
+/* ---- Section hooks ---- */
+
+.mission,
+.team {
+  scroll-margin-top: 88px;
+}
+
+/* ---- Mission ---- */
 
 .missionGrid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 1.5rem;
-  max-width: 1180px;
-  margin: 0 auto;
+  gap: clamp(1rem, 2vw, 1.5rem);
+  margin-top: clamp(2rem, 4vw, 3rem);
 }
 
 .missionCard {
-  background: var(--card-bg);
-  border: 1px solid var(--card-border);
-  border-radius: 16px;
-  padding: 2.25rem 1.75rem;
-  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease, box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.missionCard:hover {
-  transform: translateY(-6px);
-  border-color: rgba(52, 82, 255, 0.25);
-  box-shadow: 0 24px 48px rgba(11, 13, 18, 0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  padding: clamp(1.5rem, 2.6vw, 2.25rem);
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
 }
 
 .missionIconWrap {
-  width: 46px;
-  height: 46px;
-  background: linear-gradient(135deg, rgba(52, 82, 255, 0.08), rgba(6, 182, 212, 0.08));
-  color: var(--primary);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 11px;
-  margin-bottom: 1.4rem;
-  border: 1px solid var(--card-border);
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  background: var(--bg-tint);
+  color: var(--brand);
+  margin-bottom: 0.25rem;
 }
 
-.missionCard h3 {
-  font-size: 1.1rem;
-  margin-bottom: 0.65rem;
-  letter-spacing: -0.01em;
+/* ---- Team ---- */
+
+.teamSection {
+  margin-top: clamp(2rem, 4vw, 3rem);
 }
 
-.missionCard p {
-  font-size: 0.88rem;
-  color: var(--text-secondary);
-  line-height: 1.7;
-}
-
-/* TEAM */
-.team {
-  padding: 1rem 4% 6.5rem;
-  background: var(--card-elevated);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.sectionHeader {
-  text-align: center;
-  margin: 4rem 0 3.5rem;
-  max-width: 620px;
-}
-
-.sectionPill {
-  font-size: 0.72rem;
-  font-weight: 700;
-  color: var(--primary);
-  letter-spacing: 2px;
+.teamTitle {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.13em;
   text-transform: uppercase;
-  display: block;
-  margin-bottom: 0.85rem;
-}
-
-.sectionHeader h2 {
-  font-size: 2.4rem;
-  margin-bottom: 1rem;
-  letter-spacing: -0.025em;
-}
-
-.sectionHeader p {
-  color: var(--text-secondary);
-  line-height: 1.7;
-  font-size: 1.02rem;
+  color: var(--ink-3);
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--line);
+  margin-bottom: 1.5rem;
 }
 
 .teamGrid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 1.5rem;
-  max-width: 1180px;
-  width: 100%;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(1rem, 2vw, 1.5rem);
 }
 
 .teamCard {
-  background: var(--card-bg);
-  border: 1px solid var(--card-border);
-  border-radius: 16px;
-  padding: 2rem 1.5rem;
-  text-align: center;
-  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease, box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  gap: 1rem;
+  padding: clamp(1.25rem, 2.2vw, 1.75rem);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  background: var(--bg);
+  transition: border-color 0.2s var(--ease);
 }
 
 .teamCard:hover {
-  transform: translateY(-6px);
-  border-color: rgba(52, 82, 255, 0.25);
-  box-shadow: 0 24px 48px rgba(11, 13, 18, 0.08);
+  border-color: var(--line-strong);
 }
 
 .avatar {
-  width: 64px;
-  height: 64px;
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
   border-radius: 50%;
-  background: linear-gradient(135deg, rgba(52, 82, 255, 0.1), rgba(6, 182, 212, 0.1));
-  color: var(--primary);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0 auto 1.1rem;
-  border: 1px solid var(--card-border);
+  background: var(--bg-tint);
+  color: var(--brand-hover);
+  font-size: 0.875rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
 }
 
-.teamCard h3 {
-  font-size: 1.02rem;
-  margin-bottom: 0.3rem;
-  letter-spacing: -0.01em;
+.teamInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  min-width: 0;
+}
+
+.teamName {
+  font-size: 1rem;
+  font-weight: 650;
+  letter-spacing: -0.015em;
 }
 
 .role {
-  display: block;
-  font-size: 0.78rem;
-  font-weight: 600;
-  color: var(--primary);
-  margin-bottom: 0.8rem;
+  font-size: 0.8125rem;
+  color: var(--brand);
+  font-weight: 500;
 }
 
-.teamCard p {
-  font-size: 0.83rem;
-  color: var(--text-secondary);
-  line-height: 1.6;
-  margin-bottom: 1.1rem;
-}
-.teamSection {
-  margin-top: 4rem;
+.teamInfo p {
+  font-size: 0.875rem;
+  line-height: 1.55;
+  margin-top: 0.15rem;
 }
 
-.teamTitle {
-  font-size: 1.8rem;
-  font-weight: 700;
-  color: var(--text-primary);
-  margin-bottom: 2rem;
-  text-align: center;
-  position: relative;
-}
-
-.teamTitle::after {
-  content: "";
-  width: 70px;
-  height: 3px;
-  background: var(--primary);
-  display: block;
-  margin: 0.8rem auto 0;
-  border-radius: 10px;
-}
 .teamSocials {
   display: flex;
-  justify-content: center;
-  gap: 0.6rem;
+  gap: 0.4rem;
+  margin-top: 0.5rem;
 }
 
 .teamSocials a {
+  display: grid;
+  place-items: center;
   width: 30px;
   height: 30px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 7px;
-  background: var(--card-elevated);
-  border: 1px solid var(--card-border);
-  color: var(--text-secondary);
-  transition: color 0.2s ease, border-color 0.2s ease;
+  border-radius: var(--pill);
+  border: 1px solid var(--line);
+  color: var(--ink-3);
+  transition:
+    color 0.18s var(--ease),
+    border-color 0.18s var(--ease),
+    background-color 0.18s var(--ease);
 }
 
 .teamSocials a:hover {
-  color: var(--primary);
-  border-color: rgba(52, 82, 255, 0.3);
-  text-decoration: none;
+  color: var(--brand);
+  border-color: var(--brand);
+  background: var(--brand-tint);
 }
 
-/* RESPONSIVE */
+/* ---- CTA ---- */
+
+.ctaSection {
+  padding-bottom: var(--section-y);
+}
+
+.ctaCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 1.1rem;
+  padding: clamp(2.5rem, 6vw, 4.5rem) clamp(1.5rem, 4vw, 3rem);
+  border-radius: var(--radius-xl);
+  background:
+    radial-gradient(
+      90% 120% at 50% 0%,
+      var(--bg-tint-2) 0%,
+      var(--bg-tint) 55%,
+      #f6f7ff 100%
+    );
+  border: 1px solid rgba(52, 82, 255, 0.12);
+}
+
+.ctaTitle {
+  max-width: 22ch;
+}
+
+.ctaText {
+  max-width: 50ch;
+  color: var(--ink-2);
+  line-height: 1.65;
+}
+
+/* ---- Breakpoints ---- */
+
 @media (max-width: 1000px) {
-  .missionGrid {
-    grid-template-columns: 1fr;
-  }
+  .missionGrid,
   .teamGrid {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
-@media (max-width: 640px) {
-  .heroTitle {
-    font-size: 2.4rem;
+@media (max-width: 860px) {
+  .statsGrid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem 1rem;
   }
+
+  .stat:nth-child(3) {
+    padding-left: 0;
+    border-left: 0;
+  }
+}
+
+@media (max-width: 640px) {
+  .missionGrid,
   .teamGrid {
     grid-template-columns: 1fr;
+  }
+
+  .heroInner {
+    align-items: flex-start;
+  }
+
+  .statsGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .stat {
+    padding-left: 0;
+    border-left: 0;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .stat:last-child {
+    border-bottom: 0;
+    padding-bottom: 0;
   }
 }
