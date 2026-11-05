@@ -1,0 +1,242 @@
+.section {
+  position: relative;
+  background: var(--bg-1);
+  border-top: 1px solid var(--line);
+  overflow: hidden;
+}
+
+.backdrop {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(
+      ellipse 50% 40% at 85% 10%,
+      rgba(34, 211, 238, 0.08),
+      transparent 70%
+    ),
+    radial-gradient(
+      ellipse 60% 50% at 10% 80%,
+      rgba(167, 139, 250, 0.08),
+      transparent 72%
+    );
+}
+
+.head {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 2rem;
+  margin-bottom: clamp(2rem, 4vw, 3rem);
+}
+
+.title {
+  margin-top: 0.9rem;
+}
+
+/* ---- Rows ---- */
+
+.list {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  border-top: 1px solid var(--line);
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 56px minmax(0, 1fr) 150px 180px 44px;
+  align-items: center;
+  gap: clamp(0.75rem, 2vw, 2rem);
+  padding-block: clamp(1.4rem, 2.6vw, 2rem);
+  border-bottom: 1px solid var(--line);
+  position: relative;
+  isolation: isolate;
+  transition: padding-inline 0.45s var(--ease);
+}
+
+/* Sweeping gradient fill on hover */
+.row::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.55s var(--ease-out);
+  background: linear-gradient(
+    90deg,
+    rgba(91, 109, 255, 0.16),
+    rgba(91, 109, 255, 0.03) 55%,
+    transparent
+  );
+}
+
+.row[data-tone="cyan"]::before {
+  background: linear-gradient(
+    90deg,
+    rgba(34, 211, 238, 0.14),
+    rgba(34, 211, 238, 0.03) 55%,
+    transparent
+  );
+}
+
+.row[data-tone="violet"]::before {
+  background: linear-gradient(
+    90deg,
+    rgba(167, 139, 250, 0.16),
+    rgba(167, 139, 250, 0.03) 55%,
+    transparent
+  );
+}
+
+.row:hover::before {
+  transform: scaleX(1);
+}
+
+.row:hover {
+  padding-inline: 1rem;
+}
+
+.rowIndex {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.12em;
+  color: var(--ink-3);
+}
+
+.rowMain {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  min-width: 0;
+}
+
+.rowSector {
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--brand-2);
+}
+
+.rowTitle {
+  font-size: clamp(1.15rem, 2.1vw, 1.6rem);
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+  color: var(--ink);
+}
+
+.rowClient {
+  font-size: 0.8125rem;
+  color: var(--ink-3);
+}
+
+.rowMetric {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+
+.metricValue {
+  font-family: var(--font-mono);
+  font-size: clamp(1.35rem, 2.4vw, 1.85rem);
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  color: var(--ink);
+}
+
+.metricLabel {
+  font-size: 0.75rem;
+  color: var(--ink-3);
+  line-height: 1.35;
+}
+
+.rowStack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+}
+
+.rowStack li {
+  padding: 0.2rem 0.5rem;
+  border-radius: var(--pill);
+  border: 1px solid var(--line);
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  color: var(--ink-2);
+  white-space: nowrap;
+}
+
+.rowArrow {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid var(--line);
+  color: var(--ink-2);
+  transition:
+    transform 0.4s var(--ease),
+    background-color 0.4s var(--ease),
+    color 0.4s var(--ease),
+    border-color 0.4s var(--ease);
+}
+
+.row:hover .rowArrow {
+  transform: rotate(45deg);
+  background: var(--brand);
+  border-color: var(--brand);
+  color: #fff;
+}
+
+/* ---- Breakpoints ---- */
+
+@media (max-width: 1000px) {
+  .row {
+    grid-template-columns: 40px minmax(0, 1fr) 120px 40px;
+  }
+
+  .rowStack {
+    display: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .head {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .row {
+    grid-template-columns: 34px minmax(0, 1fr) 40px;
+    gap: 0.75rem;
+    padding-block: 1.35rem;
+  }
+
+  .rowMetric {
+    grid-column: 2;
+    flex-direction: row;
+    align-items: baseline;
+    gap: 0.45rem;
+  }
+
+  .metricValue {
+    font-size: 1.25rem;
+  }
+
+  .rowArrow {
+    width: 34px;
+    height: 34px;
+    grid-row: 1;
+    grid-column: 3;
+  }
+
+  .row:hover {
+    padding-inline: 0;
+  }
+}

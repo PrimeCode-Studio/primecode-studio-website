@@ -35,7 +35,7 @@ export default function Mission() {
           {VALUES.map((value) => {
             const Icon = value.icon;
             return (
-              <article key={value.title} className={styles.missionCard}>
+              <article key={value.title} className={`${styles.missionCard} reveal`}>
                 <div className={styles.missionIconWrap}>
                   <Icon size={20} strokeWidth={1.8} />
                 </div>

@@ -11,15 +11,24 @@
 /* ---- Hero ---- */
 
 .hero {
-  padding-top: clamp(3.5rem, 7vw, 6rem);
-  padding-bottom: clamp(2.5rem, 5vw, 4rem);
+  position: relative;
+  padding-top: clamp(9rem, 16vw, 13rem);
+  padding-bottom: clamp(3rem, 6vw, 5rem);
+  overflow: hidden;
+  border-bottom: 1px solid var(--line);
   background:
     radial-gradient(
-      120% 80% at 50% -10%,
-      var(--bg-tint) 0%,
-      rgba(238, 241, 255, 0.4) 40%,
-      var(--bg) 75%
-    );
+      ellipse 75% 60% at 50% -15%,
+      rgba(91, 109, 255, 0.22) 0%,
+      rgba(91, 109, 255, 0.05) 42%,
+      transparent 74%
+    ),
+    radial-gradient(
+      ellipse 45% 40% at 88% 8%,
+      rgba(34, 211, 238, 0.10) 0%,
+      transparent 70%
+    ),
+    var(--bg);
 }
 
 .heroInner {
@@ -35,7 +44,7 @@
 }
 
 .accent {
-  color: var(--brand);
+  color: var(--brand-2);
 }
 
 .heroLede {
@@ -80,7 +89,7 @@
 
 .serviceCard:hover {
   border-color: var(--line-strong);
-  box-shadow: 0 12px 30px rgba(11, 13, 18, 0.05);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
 }
 
 .serviceIcon {
@@ -89,8 +98,8 @@
   width: 42px;
   height: 42px;
   border-radius: 12px;
-  background: var(--bg-tint);
-  color: var(--brand);
+  background: rgba(91, 109, 255, 0.10);
+  color: var(--brand-2);
   margin-bottom: 0.25rem;
 }
 
@@ -114,7 +123,7 @@
 .featureList svg {
   flex-shrink: 0;
   margin-top: 2px;
-  color: var(--brand);
+  color: var(--brand-2);
 }
 
 .serviceCard :global(.linkArrow) {
@@ -143,7 +152,7 @@
 .processStep {
   font-family: var(--font-mono);
   font-size: 0.8125rem;
-  color: var(--brand);
+  color: var(--brand-2);
   letter-spacing: 0.06em;
   padding-top: 0.4rem;
 }
@@ -156,7 +165,7 @@
   border-radius: 12px;
   background: var(--bg);
   border: 1px solid var(--line);
-  color: var(--brand);
+  color: var(--brand-2);
 }
 
 .processRow > div:last-child {
@@ -192,11 +201,11 @@
   background:
     radial-gradient(
       90% 120% at 50% 0%,
-      var(--bg-tint-2) 0%,
-      var(--bg-tint) 55%,
-      #f6f7ff 100%
+      var(--bg-3) 0%,
+      rgba(91, 109, 255, 0.10) 55%,
+      #0a0c13 100%
     );
-  border: 1px solid rgba(52, 82, 255, 0.12);
+  border: 1px solid rgba(91, 109, 255, 0.22);
 }
 
 .ctaTitle {

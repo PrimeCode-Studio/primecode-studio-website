@@ -3,6 +3,7 @@ import { ArrowRight, ArrowUpRight } from "lucide-react";
 import Nav from "@/components/shared/Nav";
 import Footer from "@/components/shared/Footer";
 import styles from "./Projects.module.css";
+import RevealScope from "@/components/fx/RevealScope";
 
 const PROJECTS = [
   {
@@ -74,6 +75,7 @@ export default function ProjectsPage() {
       <Nav />
 
       <main id="main">
+        <RevealScope>
         {/* ---- Hero ---- */}
         <section className={styles.hero}>
           <div className={`container ${styles.heroInner}`}>
@@ -98,7 +100,7 @@ export default function ProjectsPage() {
                   key={project.slug}
                   className={`${styles.projectCard} ${
                     project.featured ? styles.featured : ""
-                  }`}
+                  } reveal`}
                 >
                   <div className={styles.projectArt} aria-hidden="true">
                     <span className={styles.projectCategory}>
@@ -161,6 +163,7 @@ export default function ProjectsPage() {
             </div>
           </div>
         </section>
+        </RevealScope>
       </main>
 
       <Footer />

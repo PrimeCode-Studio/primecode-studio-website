@@ -15,20 +15,20 @@ interface PreloaderProps {
 }
 
 /**
- * Full-screen intro overlay. It sits ON TOP of the page rather than
- * replacing it, so the site underneath is always rendered and visible
- * to crawlers and no-JS visitors.
+ * Cinematic intro overlay. Sits on top of already-rendered content, so the
+ * page is never hidden from crawlers. Locked to a single play per session.
  */
 export default function Preloader({
-  leftText = "Prime Code",
-  rightText = " Studio",
+  leftText = "PrimeCode",
+  rightText = "Studio",
   onComplete,
 }: PreloaderProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const leftRef = useRef<HTMLSpanElement>(null);
   const rightRef = useRef<HTMLSpanElement>(null);
   const cursorRef = useRef<HTMLSpanElement>(null);
-  const particlesRef = useRef<HTMLDivElement>(null);
+  const barRef = useRef<HTMLDivElement>(null);
+  const pctRef = useRef<HTMLSpanElement>(null);
 
   useBodyScrollLock(true);
 
@@ -37,57 +37,62 @@ export default function Preloader({
     const left = leftRef.current;
     const right = rightRef.current;
     const cursor = cursorRef.current;
-    const particles = particlesRef.current;
+    const bar = barRef.current;
+    const pct = pctRef.current;
 
-    // If anything is missing, don't trap the user behind the overlay.
-    if (!container || !left || !right || !cursor || !particles) {
+    if (!container || !left || !right || !cursor || !bar || !pct) {
       onComplete();
       return;
     }
 
-    const prefersReducedMotion = window.matchMedia(
+    const reduced = window.matchMedia(
       "(prefers-reduced-motion: reduce)",
     ).matches;
 
-    if (prefersReducedMotion) {
+    if (reduced) {
       left.textContent = leftText;
       right.textContent = rightText;
+      pct.textContent = "100";
+      bar.style.transform = "scaleX(1)";
       onComplete();
       return;
     }
 
-    gsap.set([left, right], { x: 0, opacity: 1, force3D: true });
+    gsap.set([left, right], { opacity: 1, y: 0 });
 
-    const cursorTween = gsap.to(cursor, {
-      opacity: 0,
-      repeat: -1,
-      yoyo: true,
-      duration: 0.45,
-      ease: "power1.inOut",
-    });
+    const count = { v: 0 };
+    const tl = gsap.timeline();
 
-    const tl = gsap.timeline({ defaults: { ease: "power2.out" } });
+    tl.to(count, {
+      v: 100,
+      duration: 1.9,
+      ease: "power2.inOut",
+      onUpdate: () => {
+        pct.textContent = String(Math.round(count.v)).padStart(3, "0");
+      },
+    })
 
-    tl.to(left, { text: leftText, duration: 0.7, ease: "none" }, 0.1)
-      .to(right, { text: rightText, duration: 0.32, ease: "none" })
-      .to(particles, { opacity: 1, duration: 0.25 }, "<")
-      .to(cursor, { opacity: 0, duration: 0.1 }, "<")
+      // Type the wordmark in
+      .to(left, { text: leftText, duration: 0.42, ease: "none" }, 0.05)
+      .to(right, { text: rightText, duration: 0.3, ease: "none" }, "+=0.02")
+
+      // Draw the progress hairline
+      .to(bar, { scaleX: 1, duration: 1.85, ease: "power2.inOut" }, 0.05)
+
+      // Blur out and lift the overlay
+      .to(cursor, { opacity: 0, duration: 0.2 }, "-=0.25")
       .to(
-        [left, right],
-        { scale: 1.02, duration: 0.2 },
-        "<",
-      )
-      .to(
-        left,
-        { x: "-28vw", opacity: 0, duration: 0.7, ease: "power4.inOut" },
-        "+=0.15",
-      )
-      .to(right, { x: "28vw", opacity: 0, duration: 0.7, ease: "power4.inOut" }, "<")
-      .to(container, { opacity: 0, duration: 0.35 }, "-=0.3")
-      .call(onComplete);
+        container,
+        {
+          yPercent: -100,
+          duration: 0.95,
+          ease: "expo.inOut",
+          onComplete,
+        },
+        "+=0.1",
+      );
 
     return () => {
-      cursorTween.kill();
       tl.kill();
     };
   }, [leftText, rightText, onComplete]);
@@ -95,17 +100,32 @@ export default function Preloader({
   return (
     <div
       ref={containerRef}
-      className={styles.preloaderContainer}
+      className={styles.overlay}
       role="presentation"
       aria-hidden="true"
     >
-      <div ref={particlesRef} className={styles.particles} />
+      <div className={styles.grain} />
+      <div className={styles.glow} />
 
-      <div className={styles.textContainer}>
-        <span ref={leftRef} className={styles.text} />
-        <span ref={rightRef} className={styles.text} />
-        <span ref={cursorRef} className={styles.cursor}>
-          |
+      <div className={styles.center}>
+        <div className={styles.wordmark}>
+          <span ref={leftRef} className={styles.word} />
+          <span ref={rightRef} className={`${styles.word} ${styles.wordThin}`} />
+          <span ref={cursorRef} className={styles.cursor}>
+            _
+          </span>
+        </div>
+
+        <div className={styles.barTrack}>
+          <div ref={barRef} className={styles.bar} />
+        </div>
+      </div>
+
+      <div className={styles.meta}>
+        <span className={styles.metaLeft}>Design-led engineering studio</span>
+        <span className={styles.pct}>
+          <span ref={pctRef}>000</span>
+          <span className={styles.pctMark}>%</span>
         </span>
       </div>
     </div>

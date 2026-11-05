@@ -6,6 +6,7 @@ import Team from "./Team";
 import Nav from "@/components/shared/Nav";
 import Footer from "@/components/shared/Footer";
 import styles from "./About.module.css";
+import RevealScope from "@/components/fx/RevealScope";
 
 const STATS = [
   { value: "25+", label: "Projects delivered" },
@@ -20,6 +21,7 @@ const AboutPage = () => {
       <Nav />
 
       <main id="main">
+        <RevealScope>
         <Hero />
 
         <section className={styles.statsStrip}>
@@ -52,6 +54,7 @@ const AboutPage = () => {
             </div>
           </div>
         </section>
+        </RevealScope>
       </main>
 
       <Footer />

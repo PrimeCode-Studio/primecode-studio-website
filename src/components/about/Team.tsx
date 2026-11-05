@@ -65,7 +65,7 @@ function TeamCard({ member }: { member: Member }) {
     .join("");
 
   return (
-    <article className={styles.teamCard}>
+    <article className={`${styles.teamCard} reveal`}>
       <div className={styles.avatar} aria-hidden="true">
         <span>{initials}</span>
       </div>

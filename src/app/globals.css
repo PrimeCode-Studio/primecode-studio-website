@@ -1,44 +1,51 @@
 /* ==========================================================================
-   PrimeCodeStudio — Design System
-   Editorial light theme: hairline rules, generous whitespace,
-   soft indigo tint wash, near-black ink.
-   Single source of truth for every token. No module should redefine these.
+   PrimeCodeStudio — Cinematic dark design system
+   Near-black canvas, indigo signal colour, hairline borders, grain texture.
+   Single source of truth. No module redefines these tokens.
    ========================================================================== */
 
 :root {
   /* ---- Surfaces ------------------------------------------------------ */
-  --bg: #ffffff;
-  --bg-soft: #f8f9fb;
-  --bg-tint: #eef1ff;
-  --bg-tint-2: #e3e8ff;
+  --bg: #06070b;
+  --bg-1: #0a0c13;
+  --bg-2: #0f1219;
+  --bg-3: #161a24;
 
   /* ---- Ink ----------------------------------------------------------- */
-  --ink: #0b0d12;
-  --ink-2: #5b6472; /* body copy — 5.98:1 on white, passes AA */
-  --ink-3: #6b7383; /* captions  — 4.61:1 on white, passes AA */
+  --ink: #f4f5f8;
+  --ink-2: #a5acbd; /* body copy — 7.4:1 on bg */
+  --ink-3: #7b8398; /* captions — 4.8:1 on bg */
 
-  /* ---- Brand --------------------------------------------------------- */
-  --brand: #3452ff;
-  --brand-hover: #1f38d6;
-  --brand-tint: rgba(52, 82, 255, 0.08);
-  --brand-tint-2: rgba(52, 82, 255, 0.14);
-  --accent: #06b6d4; /* decoration only — never used for text */
+  /* ---- Brand signal -------------------------------------------------- */
+  --brand: #5b6dff;
+  --brand-2: #8b9cff;
+  --brand-hot: #3452ff;
+  --accent: #22d3ee;
+  --accent-2: #a78bfa;
+
+  /* Glows / washes */
+  --glow-brand: rgba(91, 109, 255, 0.35);
+  --wash-1: rgba(91, 109, 255, 0.1);
+  --wash-2: rgba(34, 211, 238, 0.07);
+  --wash-3: rgba(167, 139, 250, 0.08);
 
   /* ---- Lines --------------------------------------------------------- */
-  --line: rgba(11, 13, 18, 0.09);
-  --line-strong: rgba(11, 13, 18, 0.16);
+  --line: rgba(255, 255, 255, 0.09);
+  --line-strong: rgba(255, 255, 255, 0.16);
+  --line-brand: rgba(91, 109, 255, 0.35);
+  --brand-tint: rgba(91, 109, 255, 0.12);
 
   /* ---- Radii --------------------------------------------------------- */
   --radius-sm: 10px;
   --radius-md: 16px;
   --radius-lg: 24px;
-  --radius-xl: 32px;
+  --radius-xl: 34px;
   --pill: 999px;
 
   /* ---- Layout -------------------------------------------------------- */
-  --container: 1200px;
+  --container: 1240px;
   --gutter: clamp(1.25rem, 4vw, 3rem);
-  --section-y: clamp(4rem, 9vw, 8rem);
+  --section-y: clamp(4.5rem, 10vw, 9rem);
 
   /* ---- Type ---------------------------------------------------------- */
   --font-sans: var(--font-inter), system-ui, -apple-system, BlinkMacSystemFont,
@@ -48,7 +55,8 @@
 
   /* ---- Motion -------------------------------------------------------- */
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
-  --focus-ring: var(--brand);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --focus-ring: var(--brand-2);
 }
 
 /* ==========================================================================
@@ -69,6 +77,7 @@
 html {
   scroll-behavior: smooth;
   -webkit-text-size-adjust: 100%;
+  background: var(--bg);
 }
 
 body {
@@ -117,8 +126,8 @@ ol {
 }
 
 ::selection {
-  background: var(--bg-tint-2);
-  color: var(--ink);
+  background: var(--brand);
+  color: #fff;
 }
 
 /* ==========================================================================
@@ -134,45 +143,38 @@ ol {
 
 .section {
   padding-block: var(--section-y);
-}
-
-.sectionTint {
-  background: var(--bg-tint);
-}
-
-.sectionSoft {
-  background: var(--bg-soft);
+  position: relative;
 }
 
 /* ==========================================================================
-   Typography primitives
+   Typography
    ========================================================================== */
 
 .display {
-  font-size: clamp(2.6rem, 6.4vw, 5rem);
-  line-height: 1.02;
-  letter-spacing: -0.035em;
+  font-size: clamp(2.75rem, 7.2vw, 6rem);
+  line-height: 0.98;
+  letter-spacing: -0.045em;
   font-weight: 700;
   text-wrap: balance;
 }
 
 .h2 {
-  font-size: clamp(1.85rem, 3.8vw, 3rem);
-  line-height: 1.08;
-  letter-spacing: -0.028em;
+  font-size: clamp(2rem, 4.4vw, 3.6rem);
+  line-height: 1.02;
+  letter-spacing: -0.038em;
   font-weight: 700;
   text-wrap: balance;
 }
 
 .h3 {
-  font-size: clamp(1.15rem, 1.8vw, 1.4rem);
-  line-height: 1.25;
-  letter-spacing: -0.015em;
-  font-weight: 650;
+  font-size: clamp(1.15rem, 1.9vw, 1.45rem);
+  line-height: 1.22;
+  letter-spacing: -0.02em;
+  font-weight: 600;
 }
 
 .lede {
-  font-size: clamp(1rem, 1.35vw, 1.125rem);
+  font-size: clamp(1rem, 1.4vw, 1.15rem);
   line-height: 1.65;
   color: var(--ink-2);
   max-width: 60ch;
@@ -190,40 +192,66 @@ ol {
   color: var(--ink-3);
 }
 
-.muted {
-  color: var(--ink-2);
+/* Gradient text — used sparingly, always with a fallback colour */
+.gradText {
+  background: linear-gradient(
+    100deg,
+    var(--ink) 0%,
+    var(--brand-2) 42%,
+    var(--accent) 72%,
+    var(--ink) 100%
+  );
+  background-size: 220% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: var(--brand-2);
+  -webkit-text-fill-color: transparent;
 }
 
-/* Pill label — the uppercase eyebrows used above every section heading */
+/* Mono eyebrow label */
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+
+.eyebrow::before {
+  content: "";
+  width: 22px;
+  height: 1px;
+  background: var(--brand);
+}
+
+/* Pill tag */
 .pill {
   display: inline-flex;
   align-items: center;
-  gap: 0.4rem;
-  padding: 0.4rem 0.8rem;
+  gap: 0.45rem;
+  padding: 0.42rem 0.85rem;
   border: 1px solid var(--line);
   border-radius: var(--pill);
-  background: var(--bg);
-  font-size: 0.6875rem;
-  font-weight: 600;
-  letter-spacing: 0.13em;
-  text-transform: uppercase;
+  background: rgba(255, 255, 255, 0.03);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.01em;
   color: var(--ink-2);
   white-space: nowrap;
+  backdrop-filter: blur(8px);
 }
 
-.pillTint {
-  background: var(--bg-tint-2);
-  border-color: transparent;
-  color: var(--brand-hover);
-}
-
-/* Section intro block: pill + h2 + lede */
+/* Section intro block */
 .sectionHead {
   display: flex;
   flex-direction: column;
-  gap: 1.15rem;
+  gap: 1.1rem;
   align-items: flex-start;
-  max-width: 62ch;
+  max-width: 64ch;
 }
 
 /* ==========================================================================
@@ -231,27 +259,30 @@ ol {
    ========================================================================== */
 
 .btn {
+  position: relative;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  padding: 0.8rem 1.4rem;
+  padding: 0.82rem 1.45rem;
   border-radius: var(--pill);
   border: 1px solid transparent;
   font-size: 0.9375rem;
   font-weight: 600;
   letter-spacing: -0.01em;
   cursor: pointer;
-  transition:
-    background-color 0.2s var(--ease),
-    border-color 0.2s var(--ease),
-    color 0.2s var(--ease),
-    transform 0.2s var(--ease);
   white-space: nowrap;
+  overflow: hidden;
+  transition:
+    background-color 0.25s var(--ease),
+    border-color 0.25s var(--ease),
+    color 0.25s var(--ease),
+    transform 0.25s var(--ease),
+    box-shadow 0.25s var(--ease);
 }
 
 .btn:hover {
-  transform: translateY(-1px);
+  transform: translateY(-2px);
 }
 
 .btn:active {
@@ -259,32 +290,29 @@ ol {
 }
 
 .btnPrimary {
-  background: var(--brand);
+  background: linear-gradient(180deg, var(--brand), var(--brand-hot));
   color: #fff;
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.18) inset,
+    0 8px 24px rgba(52, 82, 255, 0.28);
 }
 
 .btnPrimary:hover {
-  background: var(--brand-hover);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.22) inset,
+    0 12px 34px rgba(52, 82, 255, 0.45);
 }
 
-.btnTint {
-  background: var(--bg-tint-2);
-  color: var(--brand-hover);
-}
-
-.btnTint:hover {
-  background: #d5ddff;
-}
-
-.btnOutline {
-  background: transparent;
+.btnGhost {
+  background: rgba(255, 255, 255, 0.04);
   border-color: var(--line-strong);
   color: var(--ink);
+  backdrop-filter: blur(8px);
 }
 
-.btnOutline:hover {
-  border-color: var(--ink);
-  background: var(--bg);
+.btnGhost:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: var(--ink-3);
 }
 
 .btnSm {
@@ -293,94 +321,78 @@ ol {
 }
 
 .btnLg {
-  padding: 0.95rem 1.75rem;
+  padding: 0.98rem 1.8rem;
   font-size: 1rem;
 }
 
-/* Text link with arrow */
+/* Arrow link */
 .linkArrow {
   display: inline-flex;
   align-items: center;
-  gap: 0.35rem;
+  gap: 0.4rem;
   font-size: 0.9375rem;
   font-weight: 600;
-  color: var(--brand);
-  transition: gap 0.2s var(--ease);
+  color: var(--brand-2);
+  transition: gap 0.25s var(--ease);
 }
 
 .linkArrow:hover {
-  gap: 0.6rem;
-  text-decoration: none;
+  gap: 0.7rem;
 }
 
 /* ==========================================================================
-   Cards
+   Surfaces
    ========================================================================== */
 
 .card {
-  background: var(--bg);
+  position: relative;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0.015));
   border: 1px solid var(--line);
   border-radius: var(--radius-lg);
   padding: clamp(1.5rem, 2.6vw, 2.25rem);
-}
-
-/* Maki's signature split card: content half + art half */
-.splitCard {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  align-items: stretch;
-  border-radius: var(--radius-lg);
   overflow: hidden;
-  border: 1px solid var(--line);
-  background: var(--bg-tint);
 }
 
-.splitCardBody {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 1.15rem;
-  padding: clamp(1.75rem, 3.4vw, 3.25rem);
-}
-
-.splitCardArt {
-  position: relative;
-  min-height: 300px;
-  overflow: hidden;
-  background: var(--bg-tint-2);
-}
-
-@media (max-width: 780px) {
-  .splitCard {
-    grid-template-columns: 1fr;
-  }
-
-  .splitCardArt {
-    min-height: 220px;
-    order: -1;
-  }
+/* Hairline grid backdrop for sections */
+.gridBg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(to right, var(--line) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--line) 1px, transparent 1px);
+  background-size: 72px 72px;
+  mask-image: radial-gradient(ellipse 80% 60% at 50% 40%, #000 20%, transparent 78%);
+  -webkit-mask-image: radial-gradient(
+    ellipse 80% 60% at 50% 40%,
+    #000 20%,
+    transparent 78%
+  );
+  opacity: 0.45;
 }
 
 /* ==========================================================================
-   Stats
+   Stats & numbers
    ========================================================================== */
 
 .statValue {
-  font-size: clamp(1.85rem, 3.2vw, 2.75rem);
+  font-family: var(--font-mono);
+  font-size: clamp(2rem, 3.6vw, 3.25rem);
   font-weight: 700;
-  letter-spacing: -0.03em;
+  letter-spacing: -0.045em;
   line-height: 1;
   font-variant-numeric: tabular-nums;
+  color: var(--ink);
 }
 
 .statLabel {
-  font-size: 0.875rem;
-  color: var(--ink-2);
-  line-height: 1.4;
+  font-size: 0.8125rem;
+  color: var(--ink-3);
+  line-height: 1.45;
 }
 
 /* ==========================================================================
-   FAQ — native <details>, zero JS
+   FAQ — native details, zero JS
    ========================================================================== */
 
 .faqList {
@@ -398,12 +410,18 @@ ol {
   align-items: center;
   justify-content: space-between;
   gap: 1.5rem;
-  padding: 1.4rem 0;
+  padding: 1.35rem 0;
   font-size: 1.0625rem;
   font-weight: 600;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.015em;
   cursor: pointer;
   list-style: none;
+  color: var(--ink);
+  transition: color 0.2s var(--ease);
+}
+
+.faqItem summary:hover {
+  color: var(--brand-2);
 }
 
 .faqItem summary::-webkit-details-marker {
@@ -413,26 +431,28 @@ ol {
 .faqItem summary::after {
   content: "+";
   flex-shrink: 0;
-  font-size: 1.35rem;
+  font-family: var(--font-mono);
+  font-size: 1.3rem;
   font-weight: 400;
   color: var(--ink-3);
-  transition: transform 0.25s var(--ease);
+  transition: transform 0.3s var(--ease), color 0.2s var(--ease);
 }
 
 .faqItem[open] summary::after {
-  transform: rotate(45deg);
+  transform: rotate(135deg);
+  color: var(--brand-2);
 }
 
 .faqAnswer {
-  padding-bottom: 1.4rem;
+  padding-bottom: 1.35rem;
   font-size: 0.9688rem;
-  line-height: 1.7;
+  line-height: 1.72;
   color: var(--ink-2);
-  max-width: 70ch;
+  max-width: 72ch;
 }
 
 /* ==========================================================================
-   Accessibility helpers
+   Accessibility
    ========================================================================== */
 
 .skipLink {
@@ -441,7 +461,7 @@ ol {
   left: var(--gutter);
   z-index: 999;
   padding: 0.75rem 1.25rem;
-  background: var(--ink);
+  background: var(--brand);
   color: #fff;
   border-radius: var(--pill);
   font-size: 0.875rem;
@@ -452,9 +472,18 @@ ol {
   top: 1rem;
 }
 
+/* Hide reveal targets until GSAP is ready, but never break no-JS */
+html.js-ready .reveal {
+  opacity: 0;
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
+  }
+
+  html.js-ready .reveal {
+    opacity: 1;
   }
 
   *,

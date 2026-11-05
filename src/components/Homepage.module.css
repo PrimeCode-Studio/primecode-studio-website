@@ -1,756 +1,148 @@
-/* ==========================================================================
-   Homepage — editorial light theme
-   Section rhythm mirrors Maki: hero → stats → services → process →
-   featured work → values → FAQ → CTA
-   ========================================================================== */
-
 .page {
+  position: relative;
   width: 100%;
   background: var(--bg);
   color: var(--ink);
+  overflow-x: clip;
 }
 
-/* =================== HERO =================== */
+/* =================== PRINCIPLES =================== */
 
-.hero {
+.principles {
   position: relative;
-  padding-top: clamp(3.5rem, 8vw, 7rem);
-  padding-bottom: clamp(2.5rem, 5vw, 4rem);
+  background: var(--bg-1);
+  border-top: 1px solid var(--line);
+  overflow: hidden;
+}
+
+.principleGlow {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
   background:
     radial-gradient(
-      120% 80% at 50% -10%,
-      var(--bg-tint) 0%,
-      rgba(238, 241, 255, 0.45) 38%,
-      var(--bg) 72%
+      ellipse 45% 40% at 15% 0%,
+      rgba(91, 109, 255, 0.13),
+      transparent 70%
+    ),
+    radial-gradient(
+      ellipse 40% 35% at 90% 90%,
+      rgba(167, 139, 250, 0.1),
+      transparent 70%
     );
-  overflow: hidden;
 }
 
-.heroInner {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  gap: 1.5rem;
-}
-
-.heroPill {
-  background: var(--bg);
-}
-
-.dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--brand);
-  box-shadow: 0 0 0 3px var(--brand-tint);
-}
-
-.heroTitle {
-  max-width: 19ch;
-}
-
-.heroAccent {
-  color: var(--brand);
-}
-
-.heroLede {
-  max-width: 56ch;
-  text-align: center;
-}
-
-.heroActions {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 0.75rem;
-  margin-top: 0.5rem;
-}
-
-.heroProof {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.6rem;
-  margin-top: 1.25rem;
-}
-
-.heroProofItems {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 0.5rem;
-}
-
-.heroProofItems span {
-  padding: 0.35rem 0.85rem;
-  border: 1px solid var(--line);
-  border-radius: var(--pill);
-  font-size: 0.8125rem;
-  font-weight: 500;
-  color: var(--ink-2);
-  background: var(--bg);
-}
-
-/* ---- Hero art plate ---- */
-
-.heroArtWrap {
-  margin-top: clamp(2.5rem, 5vw, 4rem);
-}
-
-.heroArt {
+.principleHead {
   position: relative;
-  border-radius: var(--radius-xl);
-  padding: clamp(0.75rem, 2vw, 1.5rem);
-  background: linear-gradient(160deg, var(--bg-tint-2), var(--bg-tint) 60%);
-  border: 1px solid rgba(52, 82, 255, 0.1);
-}
-
-.mockup {
-  border-radius: var(--radius-lg);
-  overflow: hidden;
-  background: var(--bg);
-  border: 1px solid var(--line);
-  box-shadow:
-    0 1px 2px rgba(11, 13, 18, 0.04),
-    0 18px 40px rgba(11, 13, 18, 0.07);
-}
-
-.mockupHeader {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  padding: 0.7rem 1rem;
-  border-bottom: 1px solid var(--line);
-  background: var(--bg-soft);
-}
-
-.dots {
-  display: flex;
-  gap: 5px;
-}
-
-.dots span {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: var(--line-strong);
-}
-
-.mockupUrl {
-  font-size: 0.75rem;
-  color: var(--ink-3);
-  font-family: var(--font-mono);
-  background: var(--bg);
-  border: 1px solid var(--line);
-  border-radius: var(--pill);
-  padding: 0.15rem 0.6rem;
-}
-
-.mockupBody {
-  display: grid;
-  grid-template-columns: 1.15fr 0.85fr;
-  gap: clamp(1.25rem, 3vw, 2.5rem);
-  padding: clamp(1.5rem, 3.5vw, 2.75rem);
-  align-items: center;
-}
-
-.mockupCopy {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  gap: 0.9rem;
-  text-align: left;
-}
-
-.mockupTitle {
-  font-size: clamp(1.35rem, 2.6vw, 2rem);
-  line-height: 1.12;
-  letter-spacing: -0.025em;
-  font-weight: 700;
-}
-
-.mockupText {
-  font-size: 0.9375rem;
-  color: var(--ink-2);
-  line-height: 1.6;
-}
-
-.mockupActions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  margin-top: 0.25rem;
-}
-
-.codeCard {
-  border-radius: var(--radius-md);
-  overflow: hidden;
-  background: #0e1116;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-}
-
-.codeCardHead {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0.55rem 0.85rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-  font-family: var(--font-mono);
-  font-size: 0.6875rem;
-  color: rgba(255, 255, 255, 0.45);
-}
-
-.codeDot {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: #34d399;
-}
-
-.code {
-  padding: 1rem 0.9rem;
-  font-family: var(--font-mono);
-  font-size: clamp(0.6875rem, 1.15vw, 0.8125rem);
-  line-height: 1.75;
-  color: rgba(255, 255, 255, 0.82);
-  overflow-x: auto;
-}
-
-.tk {
-  color: #a5b4fc;
-}
-
-.tf {
-  color: #7dd3fc;
-}
-
-.ts {
-  color: #86efac;
-}
-
-.artBadge {
-  position: absolute;
-  right: clamp(1rem, 3vw, 2rem);
-  bottom: clamp(-0.75rem, -1vw, -0.5rem);
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  padding: 0.5rem 0.9rem;
-  border-radius: var(--pill);
-  background: var(--bg);
-  border: 1px solid var(--line);
-  box-shadow: 0 8px 24px rgba(11, 13, 18, 0.09);
-  font-size: 0.8125rem;
-  font-weight: 600;
-  color: var(--ink);
-}
-
-.artBadge svg {
-  color: var(--brand);
-}
-
-/* =================== STATS STRIP =================== */
-
-.statsStrip {
-  border-block: 1px solid var(--line);
-  background: var(--bg);
-}
-
-.statsGrid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 1rem;
-  padding-block: clamp(1.75rem, 3.5vw, 2.5rem);
-}
-
-.stat {
-  display: flex;
-  flex-direction: column;
-  gap: 0.35rem;
-  padding-left: 1.25rem;
-  border-left: 1px solid var(--line);
-}
-
-.stat:first-child {
-  padding-left: 0;
-  border-left: 0;
-}
-
-/* =================== HEADERS =================== */
-
-.headRow {
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: 2rem;
-  margin-bottom: clamp(2rem, 4vw, 3rem);
-}
-
-/* =================== SECTION HOOKS =================== */
-
-.servicesSection,
-.workSection,
-.faqSection {
-  scroll-margin-top: 88px;
-}
-
-/* =================== SERVICES =================== */
-
-.serviceGrid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1px;
-  background: var(--line);
-  border: 1px solid var(--line);
-  border-radius: var(--radius-lg);
-  overflow: hidden;
-}
-
-.serviceCard {
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-  padding: clamp(1.5rem, 2.6vw, 2.25rem);
-  background: var(--bg);
-  transition: background-color 0.2s var(--ease);
-}
-
-.serviceCard:hover {
-  background: var(--bg-soft);
-}
-
-.serviceIcon {
-  display: grid;
-  place-items: center;
-  width: 42px;
-  height: 42px;
-  border-radius: 12px;
-  background: var(--bg-tint);
-  color: var(--brand);
-  margin-bottom: 0.25rem;
-}
-
-.tagRow {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.4rem;
-  margin-top: auto;
-  padding-top: 0.75rem;
-}
-
-.tag {
-  padding: 0.25rem 0.6rem;
-  border-radius: var(--pill);
-  background: var(--bg-soft);
-  border: 1px solid var(--line);
-  font-size: 0.75rem;
-  color: var(--ink-2);
-}
-
-/* =================== PROCESS / STAGES =================== */
-
-.stageList {
-  display: flex;
-  flex-direction: column;
-  border-top: 1px solid var(--line-strong);
-}
-
-.stageRow {
-  display: grid;
-  grid-template-columns: 180px 1fr 280px;
-  gap: clamp(1.5rem, 3vw, 3rem);
-  align-items: start;
-  padding-block: clamp(1.75rem, 3.5vw, 2.75rem);
-  border-bottom: 1px solid var(--line);
-}
-
-.stageMeta {
-  display: flex;
-  flex-direction: column;
-  gap: 0.35rem;
-  position: sticky;
-  top: 92px;
-}
-
-.stageStep {
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
-  color: var(--brand);
-  letter-spacing: 0.06em;
-}
-
-.stageLabel {
-  font-size: 1.0625rem;
-  font-weight: 650;
-  letter-spacing: -0.015em;
-}
-
-.stageContent {
-  display: flex;
-  flex-direction: column;
-  gap: 0.65rem;
-  max-width: 52ch;
-}
-
-.stageIcon {
-  display: grid;
-  place-items: center;
-  width: 36px;
-  height: 36px;
-  border-radius: 10px;
-  background: var(--bg);
-  border: 1px solid var(--line);
-  color: var(--brand);
-}
-
-.stageTitle {
-  font-size: clamp(1.2rem, 2vw, 1.5rem);
-  line-height: 1.2;
-  letter-spacing: -0.022em;
-  font-weight: 650;
-}
-
-.stagePoints {
-  display: flex;
-  flex-direction: column;
-  gap: 0.6rem;
-}
-
-.stagePoints li {
-  display: flex;
-  align-items: flex-start;
-  gap: 0.5rem;
-  font-size: 0.875rem;
-  line-height: 1.5;
-  color: var(--ink-2);
-}
-
-.stagePoints svg {
-  flex-shrink: 0;
-  margin-top: 2px;
-  color: var(--brand);
-}
-
-/* =================== FEATURED WORK =================== */
-
-.splitCard {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  border-radius: var(--radius-lg);
-  border: 1px solid var(--line);
-  overflow: hidden;
-  background: var(--bg-tint);
-}
-
-.splitCardBody {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
   gap: 1.1rem;
-  padding: clamp(1.75rem, 3.5vw, 3rem);
+  margin-bottom: clamp(2.5rem, 5vw, 4rem);
 }
 
-.clientMark {
-  font-size: 0.875rem;
-  font-weight: 700;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--ink);
+.principleTitle {
+  margin-top: 0.4rem;
 }
 
-.splitTitle {
-  font-size: clamp(1.35rem, 2.4vw, 1.9rem);
-  line-height: 1.18;
-  letter-spacing: -0.025em;
-  font-weight: 700;
-  max-width: 22ch;
+.dim {
+  color: var(--ink-3);
 }
 
-.splitStats {
-  display: flex;
-  gap: clamp(1.5rem, 3vw, 2.75rem);
-  padding-block: 0.25rem;
-}
-
-.splitStats > div {
-  display: flex;
-  flex-direction: column;
-  gap: 0.2rem;
-}
-
-.splitCardArt {
+.principleGrid {
   position: relative;
-  min-height: 340px;
-  display: grid;
-  place-items: center;
-  padding: clamp(1.25rem, 3vw, 2rem);
-  background: var(--bg-tint-2);
-}
-
-.artPanel {
-  width: 100%;
-  max-width: 340px;
-  aspect-ratio: 4 / 3;
-  border-radius: var(--radius-md);
-  background: var(--bg);
-  border: 1px solid var(--line);
-  box-shadow: 0 14px 34px rgba(11, 13, 18, 0.1);
-  padding: 1.1rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.9rem;
-}
-
-.artBarRow {
-  display: flex;
-  flex-direction: column;
-  gap: 0.4rem;
-}
-
-.artBar {
-  display: block;
-  height: 9px;
-  border-radius: var(--pill);
-  background: var(--ink);
-}
-
-.artBarSoft {
-  display: block;
-  height: 9px;
-  border-radius: var(--pill);
-  background: var(--line-strong);
-}
-
-.artChart {
-  flex: 1;
-  display: flex;
-  align-items: flex-end;
-  gap: 0.4rem;
-  padding-top: 0.5rem;
-}
-
-.artChart span {
-  flex: 1;
-  border-radius: 4px 4px 2px 2px;
-  background: linear-gradient(180deg, var(--brand), #7d92ff);
-  opacity: 0.85;
-}
-
-.artChart span:nth-child(even) {
-  background: linear-gradient(180deg, #a8b8ff, #d9e0ff);
-}
-
-.artCardRow {
-  display: flex;
-  gap: 0.5rem;
-}
-
-.artChip {
-  flex: 1;
-  height: 34px;
-  border-radius: 8px;
-  background: var(--bg-soft);
-  border: 1px solid var(--line);
-}
-
-/* =================== VALUES =================== */
-
-.valueGrid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: clamp(1rem, 2vw, 1.75rem);
+  gap: clamp(1rem, 2vw, 1.5rem);
 }
 
-.valueCard {
+.principleCard {
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: 0.7rem;
-  padding: clamp(1.5rem, 2.6vw, 2rem);
-  background: var(--bg);
-  border: 1px solid var(--line);
+  padding: clamp(1.5rem, 2.6vw, 2.1rem);
   border-radius: var(--radius-lg);
+  border: 1px solid var(--line);
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.045),
+    rgba(255, 255, 255, 0.012)
+  );
+  overflow: hidden;
+  transition:
+    border-color 0.4s var(--ease),
+    transform 0.4s var(--ease);
 }
 
-.valueIndex {
+.principleCard:hover {
+  border-color: var(--line-brand);
+  transform: translateY(-4px);
+}
+
+.principleNum {
+  position: absolute;
+  top: 1.1rem;
+  right: 1.25rem;
   font-family: var(--font-mono);
-  font-size: 0.75rem;
-  color: var(--brand);
-  letter-spacing: 0.08em;
+  font-size: 0.6875rem;
+  letter-spacing: 0.12em;
+  color: var(--ink-3);
+  opacity: 0.6;
 }
 
-/* =================== FAQ =================== */
-
-.faqGrid {
+.principleIcon {
   display: grid;
-  grid-template-columns: 0.85fr 1.15fr;
-  gap: clamp(2rem, 5vw, 5rem);
-  align-items: start;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 11px;
+  border: 1px solid var(--line-strong);
+  background: rgba(91, 109, 255, 0.1);
+  color: var(--brand-2);
+  margin-bottom: 0.35rem;
 }
 
-.faqSection .sectionHead {
-  position: sticky;
-  top: 100px;
-}
-
-/* =================== CTA =================== */
-
-.ctaSection {
-  padding-bottom: var(--section-y);
-}
-
-.ctaCard {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  gap: 1.1rem;
-  padding: clamp(2.5rem, 6vw, 5rem) clamp(1.5rem, 4vw, 3rem);
-  border-radius: var(--radius-xl);
-  background:
-    radial-gradient(
-      90% 120% at 50% 0%,
-      var(--bg-tint-2) 0%,
-      var(--bg-tint) 55%,
-      #f6f7ff 100%
-    );
-  border: 1px solid rgba(52, 82, 255, 0.12);
-}
-
-.ctaPill {
-  background: var(--bg);
-}
-
-.ctaTitle {
-  max-width: 24ch;
-}
-
-.ctaText {
-  max-width: 52ch;
-  color: var(--ink-2);
+.principleBody {
+  font-size: 0.9rem;
   line-height: 1.65;
+  color: var(--ink-2);
 }
 
-.ctaActions {
+/* ---- About strip ---- */
+
+.aboutStrip {
+  position: relative;
   display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
   flex-wrap: wrap;
-  justify-content: center;
-  gap: 0.75rem;
-  margin-top: 0.75rem;
+  margin-top: clamp(2.5rem, 5vw, 3.5rem);
+  padding-top: clamp(1.5rem, 3vw, 2rem);
+  border-top: 1px solid var(--line);
+}
+
+.aboutText {
+  font-size: clamp(1rem, 1.6vw, 1.25rem);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 1.45;
+  color: var(--ink);
+  max-width: 48ch;
 }
 
 /* =================== BREAKPOINTS =================== */
 
-@media (max-width: 1000px) {
-  .serviceGrid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .stageRow {
-    grid-template-columns: 130px 1fr;
-  }
-
-  .stagePoints {
-    grid-column: 2;
-  }
-
-  .valueGrid {
+@media (max-width: 900px) {
+  .principleGrid {
     grid-template-columns: 1fr;
-  }
-
-  .faqGrid {
-    grid-template-columns: 1fr;
-  }
-
-  .faqSection .sectionHead {
-    position: static;
   }
 }
 
-@media (max-width: 860px) {
-  .mockupBody {
-    grid-template-columns: 1fr;
-  }
-
-  .statsGrid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1.5rem 1rem;
-  }
-
-  .stat:nth-child(3) {
-    padding-left: 0;
-    border-left: 0;
-  }
-
-  .splitCard {
-    grid-template-columns: 1fr;
-  }
-
-  .splitCardArt {
-    order: -1;
-    min-height: 260px;
-  }
-
-  .headRow {
+@media (max-width: 560px) {
+  .aboutStrip {
     flex-direction: column;
     align-items: flex-start;
-    gap: 1.25rem;
-  }
-}
-
-@media (max-width: 640px) {
-  .serviceGrid {
-    grid-template-columns: 1fr;
-  }
-
-  .stageRow {
-    grid-template-columns: 1fr;
     gap: 1rem;
-  }
-
-  .stageMeta {
-    position: static;
-    flex-direction: row;
-    align-items: baseline;
-    gap: 0.6rem;
-  }
-
-  .stagePoints {
-    grid-column: 1;
-  }
-
-  .heroActions,
-  .ctaActions {
-    width: 100%;
-    flex-direction: column;
-  }
-
-  .heroActions > :global(.btn),
-  .ctaActions > :global(.btn) {
-    width: 100%;
-  }
-
-  .artBadge {
-    right: 1rem;
-    bottom: 0.75rem;
-  }
-}
-
-@media (max-width: 420px) {
-  .statsGrid {
-    grid-template-columns: 1fr;
-  }
-
-  .stat {
-    padding-left: 0;
-    border-left: 0;
-    padding-bottom: 0.75rem;
-    border-bottom: 1px solid var(--line);
-  }
-
-  .stat:last-child {
-    border-bottom: 0;
-    padding-bottom: 0;
   }
 }

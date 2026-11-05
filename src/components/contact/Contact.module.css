@@ -11,15 +11,24 @@
 /* ---- Hero ---- */
 
 .hero {
-  padding-top: clamp(3.5rem, 7vw, 6rem);
-  padding-bottom: clamp(2rem, 4vw, 3rem);
+  position: relative;
+  padding-top: clamp(9rem, 16vw, 13rem);
+  padding-bottom: clamp(3rem, 6vw, 5rem);
+  overflow: hidden;
+  border-bottom: 1px solid var(--line);
   background:
     radial-gradient(
-      120% 80% at 50% -10%,
-      var(--bg-tint) 0%,
-      rgba(238, 241, 255, 0.4) 40%,
-      var(--bg) 75%
-    );
+      ellipse 75% 60% at 50% -15%,
+      rgba(91, 109, 255, 0.22) 0%,
+      rgba(91, 109, 255, 0.05) 42%,
+      transparent 74%
+    ),
+    radial-gradient(
+      ellipse 45% 40% at 88% 8%,
+      rgba(34, 211, 238, 0.10) 0%,
+      transparent 70%
+    ),
+    var(--bg);
 }
 
 .heroInner {
@@ -35,7 +44,7 @@
 }
 
 .accent {
-  color: var(--brand);
+  color: var(--brand-2);
 }
 
 .heroLede {
@@ -85,7 +94,7 @@
 
 a.infoCard:hover {
   border-color: var(--line-strong);
-  background: var(--bg-soft);
+  background: var(--bg-1);
   text-decoration: none;
 }
 
@@ -96,8 +105,8 @@ a.infoCard:hover {
   width: 34px;
   height: 34px;
   border-radius: 10px;
-  background: var(--bg-tint);
-  color: var(--brand);
+  background: rgba(91, 109, 255, 0.10);
+  color: var(--brand-2);
 }
 
 .infoText {
@@ -145,7 +154,7 @@ a.infoCard:hover {
   border: 1px solid var(--line);
   border-radius: var(--radius-lg);
   background: var(--bg);
-  box-shadow: 0 12px 34px rgba(11, 13, 18, 0.04);
+  box-shadow: 0 12px 34px rgba(0, 0, 0, 0.35);
 }
 
 .formRow {
@@ -188,7 +197,7 @@ a.infoCard:hover {
 .field input:focus,
 .field textarea:focus {
   outline: none;
-  border-color: var(--brand);
+  border-color: var(--brand-2);
   box-shadow: 0 0 0 3px var(--brand-tint);
 }
 
@@ -241,9 +250,9 @@ a.infoCard:hover {
 }
 
 .successMsg {
-  background: #ecfdf5;
-  border: 1px solid #a7f3d0;
-  color: #065f46;
+  background: rgba(52, 211, 153, 0.10);
+  border: 1px solid rgba(52, 211, 153, 0.32);
+  color: #6ee7b7;
 }
 
 .successMsg svg {
@@ -252,9 +261,9 @@ a.infoCard:hover {
 }
 
 .errorMsg {
-  background: #fef2f2;
-  border: 1px solid #fecaca;
-  color: #991b1b;
+  background: rgba(248, 113, 113, 0.10);
+  border: 1px solid rgba(248, 113, 113, 0.30);
+  color: #fca5a5;
 }
 
 .errorMsg svg {

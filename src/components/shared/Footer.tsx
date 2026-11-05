@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { Camera, MessageCircle, Mail } from "lucide-react";
+import { Camera, MessageCircle, Mail, ArrowUpRight } from "lucide-react";
 import styles from "./Footer.module.css";
 
 const COMPANY = [
@@ -11,11 +11,11 @@ const COMPANY = [
 ];
 
 const SERVICES = [
-  { label: "Website Development", href: "/services" },
-  { label: "Web Applications", href: "/services" },
-  { label: "E-Commerce", href: "/services" },
-  { label: "UI/UX Design", href: "/services" },
-  { label: "AI Solutions", href: "/services" },
+  { label: "Websites", href: "/services" },
+  { label: "Web Apps", href: "/services" },
+  { label: "Commerce", href: "/services" },
+  { label: "AI Products", href: "/services" },
+  { label: "Design", href: "/services" },
 ];
 
 export default function Footer() {
@@ -24,21 +24,25 @@ export default function Footer() {
   return (
     <footer className={styles.footer}>
       <div className="container">
+        {/* Oversized wordmark */}
+        <div className={styles.wordmarkWrap} aria-hidden="true">
+          <span className={styles.wordmark}>PRIMECODE</span>
+        </div>
+
         <div className={styles.top}>
           <div className={styles.brandCol}>
             <Link href="/" className={styles.logo} aria-label="PrimeCodeStudio">
               <span className={styles.logoMark}>
-                <Image src="/logo_without_bg.PNG" alt="" width={26} height={26} />
+                <Image src="/logo_without_bg.PNG" alt="" width={24} height={24} />
               </span>
               <span className={styles.logoText}>
-                PrimeCode<strong>Studio</strong>
+                PrimeCode<span>Studio</span>
               </span>
             </Link>
 
             <p className={styles.tagline}>
-              Turning ideas into powerful digital experiences. Modern websites,
-              web applications, e-commerce platforms and AI-powered solutions
-              for startups and businesses.
+              A design-led engineering studio in Mumbai, building websites, web
+              apps, commerce and AI products for teams who care how it feels.
             </p>
 
             <div className={styles.socials}>
@@ -48,7 +52,7 @@ export default function Footer() {
                 rel="noopener noreferrer"
                 aria-label="WhatsApp"
               >
-                <MessageCircle size={17} />
+                <MessageCircle size={16} />
               </a>
               <a
                 href="https://instagram.com/primecodestudio"
@@ -56,16 +60,16 @@ export default function Footer() {
                 rel="noopener noreferrer"
                 aria-label="Instagram"
               >
-                <Camera size={17} />
+                <Camera size={16} />
               </a>
               <a href="mailto:primecodestudio11@gmail.com" aria-label="Email">
-                <Mail size={17} />
+                <Mail size={16} />
               </a>
             </div>
           </div>
 
           <div className={styles.linkCol}>
-            <h2 className={styles.colTitle}>Company</h2>
+            <h2 className={styles.colTitle}>Studio</h2>
             {COMPANY.map((l) => (
               <Link key={l.label} href={l.href}>
                 {l.label}
@@ -83,19 +87,20 @@ export default function Footer() {
           </div>
 
           <div className={styles.linkCol}>
-            <h2 className={styles.colTitle}>Get in touch</h2>
-            <a href="mailto:primecodestudio11@gmail.com">
+            <h2 className={styles.colTitle}>Say hello</h2>
+            <a href="mailto:primecodestudio11@gmail.com" className={styles.email}>
               primecodestudio11@gmail.com
             </a>
             <a
               href="https://wa.me/917304414905"
               target="_blank"
               rel="noopener noreferrer"
+              className={styles.wa}
             >
-              Chat on WhatsApp
+              Chat on WhatsApp <ArrowUpRight size={13} />
             </a>
             <span className={styles.muted}>
-              Available for new projects worldwide.
+              Mumbai, India — working with clients worldwide.
             </span>
           </div>
         </div>
@@ -112,6 +117,9 @@ export default function Footer() {
               Terms of Service
             </Link>
           </div>
+          <span className={`caption ${styles.built}`}>
+            Designed &amp; built in-house
+          </span>
         </div>
       </div>
     </footer>

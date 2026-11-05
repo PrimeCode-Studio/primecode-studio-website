@@ -14,6 +14,7 @@ import {
 } from "lucide-react";
 import Nav from "@/components/shared/Nav";
 import Footer from "@/components/shared/Footer";
+import RevealScope from "@/components/fx/RevealScope";
 import styles from "@/components/services/Services.module.css";
 
 export const metadata: Metadata = {
@@ -160,6 +161,7 @@ export default function Services() {
       <Nav />
 
       <main id="main">
+        <RevealScope>
         {/* ---- Hero ---- */}
         <section className={styles.hero}>
           <div className={`container ${styles.heroInner}`}>
@@ -191,7 +193,7 @@ export default function Services() {
               {SERVICES.map((service) => {
                 const Icon = service.icon;
                 return (
-                  <article key={service.title} className={styles.serviceCard}>
+                  <article key={service.title} className={`${styles.serviceCard} reveal`}>
                     <div className={styles.serviceIcon}>
                       <Icon size={20} strokeWidth={1.8} />
                     </div>
@@ -231,7 +233,7 @@ export default function Services() {
               {PROCESS.map((item) => {
                 const Icon = item.icon;
                 return (
-                  <article key={item.step} className={styles.processRow}>
+                  <article key={item.step} className={`${styles.processRow} reveal`}>
                     <span className={styles.processStep}>{item.step}</span>
                     <div className={styles.processIcon}>
                       <Icon size={18} strokeWidth={1.8} />
@@ -291,6 +293,7 @@ export default function Services() {
             </div>
           </div>
         </section>
+        </RevealScope>
       </main>
 
       <Footer />
